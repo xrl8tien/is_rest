@@ -1,0 +1,18 @@
+version: '3.3'
+
+services:
+    web:
+        image: is_rest:latest
+        networks:
+          - web
+    frontend:
+        image: angular_ui_docker:latest
+        ports:
+          - "80:80"
+        networks:
+          - frontend
+          - web
+
+networks:
+  web:
+  frontend:

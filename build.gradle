@@ -1,0 +1,50 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'application'
+}
+
+application {
+    mainClassName = 'com.is.issystem.IssystemApplication'
+}
+
+group = 'com.is'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.sendgrid:sendgrid-java:4.0.1'
+    implementation 'org.springframework.boot:spring-boot-starter-mail:1.2.0.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:1.1.4.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.auth0:auth0:1.0.0'
+    implementation 'com.google.cloud:google-cloud-storage:1.45.0'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-starter-storage', version: '1.2.7.RELEASE'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-autoconfigure', version: '1.1.0.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'mysql:mysql-connector-java'
+    implementation 'org.json:json:20171018'
+    annotationProcessor 'org.projectlombok:lombok'
+    testCompile group: 'com.h2database', name: 'h2', version: '1.4.200'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.2.0.RELEASE'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation ('org.springframework.boot:spring-boot-starter-test'){
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

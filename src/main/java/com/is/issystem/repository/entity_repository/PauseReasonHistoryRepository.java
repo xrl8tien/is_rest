@@ -1,0 +1,9 @@
+package com.is.issystem.repository.entity_repository;
+
+import com.is.issystem.entities.PauseReason;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface PauseReasonHistoryRepository extends JpaRepository<PauseReason,Integer> {
+}
