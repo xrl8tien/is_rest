@@ -52,7 +52,7 @@ public class AttachmentService {
             CustomerAttachment customerAttachment = new CustomerAttachment();
             // lấy id doc để đặt tên cho tài liệu vì gcp không thể lưu các doc có name giống nhau
             Integer idDoc = this.saveOneCustomerAttachment(customerAttachment).getId();
-            BlobId blobId = BlobId.of("is-solution.appspot.com", idDoc+"_"+file.getOriginalFilename());
+            BlobId blobId = BlobId.of("tienstorage", idDoc+"_"+file.getOriginalFilename());
             BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
             urlMedia.add(new String[]{storage.create(blobInfo, file.getBytes()).getMediaLink(), idDoc.toString()});
         }
