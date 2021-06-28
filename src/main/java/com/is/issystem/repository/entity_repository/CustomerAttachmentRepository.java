@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface CustomerAttachmentRepository extends JpaRepository<CustomerAttachment,Integer> {
     @Query(nativeQuery = true,value = "SELECT * FROM is_agency_db.customer_attachment where id_contract = ?1 ;")
-    public List<CustomerAttachment> getCustomerAttachemnt(Integer id_contract);
+    public List<CustomerAttachment> getCustomerAttachment(Integer id_contract);
 }

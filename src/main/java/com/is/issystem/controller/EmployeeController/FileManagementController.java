@@ -32,10 +32,14 @@ public class FileManagementController {
     @Autowired
     private AttachmentService attachmentService;
 
-    @PostMapping(value = "/upload_file")
-    public ResponseEntity uploadFile(@RequestParam("fileData") MultipartFile[] fileData) throws IOException {
+    @PostMapping(value = "/upload_file_customer")
+    public ResponseEntity uploadFileCustomer(@RequestParam("fileData") MultipartFile[] fileData) throws IOException {
         return ResponseEntity.status(HttpStatus.OK).body(attachmentService.uploadCustomerAttachmentToGCP(fileData,storage));
     }
 
+    @PostMapping(value = "/upload_file_request")
+    public ResponseEntity uploadFileRequest(@RequestParam("fileData") MultipartFile[] fileData) throws IOException {
+        return ResponseEntity.status(HttpStatus.OK).body(attachmentService.uploadRequestAttachmentToGCP(fileData,storage));
+    }
 
 }

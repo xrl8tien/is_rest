@@ -14,6 +14,7 @@ public class RequestService {
     @Autowired
     private RequestRepository requestRepository;
 
+    //contract request
     public List<Request> getAllContractRequestApproval(String code_appraiser) {
         return requestRepository.getAllCheckReq(code_appraiser);
     }
@@ -28,6 +29,7 @@ public class RequestService {
         return requestRepository.searchAllUncheckReq(code_appraiser,dateFrom,dateTo,searchValue);
     }
 
+    //add and get request
     public Optional<Request> getDetailRequest(int id){
         return requestRepository.findById(id);
     }
@@ -35,4 +37,21 @@ public class RequestService {
     public Request addOneReq(Request request){
         return requestRepository.save(request);
     }
+
+
+    //claim request
+    public List<Request> getAllClaimRequestApproval(String code_appraiser) {
+        return requestRepository.getAllCheckClaimReq(code_appraiser);
+    }
+    public List<Request> searchAllClaimRequestApproval(String code_appraiser,String dateFrom,String dateTo,String searchValue) {
+        return requestRepository.searchAllCheckClaimReq(code_appraiser,dateFrom,dateTo,searchValue);
+    }
+
+    public List<Request> getAllUncheckClaimReq(String code_appraiser){
+        return requestRepository.getAllUncheckClaimReq(code_appraiser);
+    }
+    public List<Request> searchAllUncheckClaimReq(String code_appraiser,String dateFrom,String dateTo,String searchValue){
+        return requestRepository.searchAllUncheckClaimReq(code_appraiser,dateFrom,dateTo,searchValue);
+    }
+
 }

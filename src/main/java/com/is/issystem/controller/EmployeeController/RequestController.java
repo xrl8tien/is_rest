@@ -15,6 +15,7 @@ public class RequestController {
     @Autowired
     private RequestService requestService;
 
+    //contract request
     @PostMapping(value = "/get_all_request")
     List<Request> getAllContractRequest(@RequestBody String code_appraiser){
         return requestService.getAllUncheckReq(code_appraiser);
@@ -36,8 +37,9 @@ public class RequestController {
         return requestService.searchAllContractRequestApproval(requestObject.getString("code_appraiser"),requestObject.getString("dateFrom"),requestObject.getString("dateTo"),requestObject.getString("searchValue"));
     }
 
+    //get and add request
     @PostMapping(value = "/get_detail_request")
-    public ResponseEntity<?> getdetailRequest(@RequestBody Integer id)
+    public ResponseEntity<?> getDetailRequest(@RequestBody Integer id)
     {
         return ResponseEntity.status(HttpStatus.OK).body(requestService.getDetailRequest(id));
     }
@@ -46,4 +48,27 @@ public class RequestController {
     public ResponseEntity<?> addOneRequest(@RequestBody Request request){
         return ResponseEntity.status(HttpStatus.OK).body(requestService.addOneReq(request));
     }
+
+    //claim request
+    @PostMapping(value = "/get_all_claim_request")
+    List<Request> getAllClaimRequest(@RequestBody String code_appraiser){
+        return requestService.getAllUncheckClaimReq(code_appraiser);
+    }
+    @PostMapping(value = "/search_all_claim_request")
+    List<Request> searchAllClaimRequest(@RequestBody String data){
+        JSONObject requestObject = new JSONObject(data);
+        return requestService.searchAllUncheckClaimReq(requestObject.getString("code_appraiser"),requestObject.getString("dateFrom"),requestObject.getString("dateTo"),requestObject.getString("searchValue"));
+    }
+
+    @PostMapping(value = "/get_all_claim_request_approval")
+    List<Request> getAllClaimRequestApproval(@RequestBody String code_appraiser){
+        return requestService.getAllClaimRequestApproval(code_appraiser);
+    }
+
+    @PostMapping(value = "/search_all_claim_request_approval")
+    List<Request> searchAllClaimRequestApproval(@RequestBody String data){
+        JSONObject requestObject = new JSONObject(data);
+        return requestService.searchAllClaimRequestApproval(requestObject.getString("code_appraiser"),requestObject.getString("dateFrom"),requestObject.getString("dateTo"),requestObject.getString("searchValue"));
+    }
+
 }

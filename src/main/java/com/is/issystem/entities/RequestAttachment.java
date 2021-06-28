@@ -19,5 +19,5 @@ public class RequestAttachment {
     @Column(name = "url")
     String url;
     @Column(name = "id_request")
-    Integer id_customer;
+    Integer id_request;
 }
