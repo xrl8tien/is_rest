@@ -2,14 +2,9 @@ package com.is.issystem.service;
 
 import com.is.issystem.dto.IllustrationDTO;
 import com.is.issystem.dto.IllustrationItemOfList;
-import com.is.issystem.entities.Illustration;
-import com.is.issystem.entities.IllustrationMainBenifit;
-import com.is.issystem.entities.IllustrationSubBenifit;
+import com.is.issystem.entities.*;
 import com.is.issystem.repository.entity_dto_repository.IllustrationItemOfListRepository;
-import com.is.issystem.repository.entity_repository.IllustrationMainBenifitRepository;
-import com.is.issystem.repository.entity_repository.IllustrationRepository;
-import com.is.issystem.repository.entity_repository.IllustrationSubBenifitRepository;
-import com.is.issystem.repository.entity_repository.MainBenifitRepository;
+import com.is.issystem.repository.entity_repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,13 +27,20 @@ public class IllustrationService {
     @Autowired
     private IllustrationSubBenifitRepository illustSubBenifitRepository;
 
-    public List<IllustrationItemOfList> getAllIllustrationCustOwn(int id){
+    public List<IllustrationItemOfList> getAllIllustrationCustOwn(int id) {
         return illustrationItemOfListRepository.listIllustrationCustomerOwn(id);
     }
+
     @Autowired
     private MainBenifitRepository mainBenifitRepository;
 
-    public IllustrationDTO getDetailIllustration(Integer id){
+    @Autowired
+    private MainBenefitScaleRepository mainBenefitScaleRepository;
+
+    @Autowired
+    private SubBenefitScaleRepository subBenefitScaleRepository;
+
+    public IllustrationDTO getDetailIllustration(Integer id) {
         IllustrationDTO illustrationDTO = new IllustrationDTO();
 
         // lấy thông tin cơ bản của bản minh họa
@@ -48,7 +50,6 @@ public class IllustrationService {
         illustrationDTO.setCreate_time(illustration.get().getCreate_time());
         illustrationDTO.setPayment_period_id(illustration.get().getPayment_period_id());
         illustrationDTO.setTotal_fee(illustration.get().getTotal_fee());
-
 
 
         // lấy thông tin người hưởng quyền lợi chính
@@ -63,18 +64,22 @@ public class IllustrationService {
         return illustrationDTO;
     }
 
+    public List<IllustrationSubBenifit> getAllSubBenefitById(int id) {
+        return illustSubBenifitRepository.getAllIllustrationSubByIllustID(id);
+    }
 
-    public List<IllustrationItemOfList> getAllIllustration(int id){
+
+    public List<IllustrationItemOfList> getAllIllustration(int id) {
         return illustrationItemOfListRepository.listIllustrationCustomerOwn(id);
     }
 
-    public List<IllustrationItemOfList> searchAllIllustration(int id,String dateFrom,String dateTo,String searchValue){
-        return illustrationItemOfListRepository.searchListIllustrationCustomerOwn(id,dateFrom,dateTo,searchValue);
+    public List<IllustrationItemOfList> searchAllIllustration(int id, String dateFrom, String dateTo, String searchValue) {
+        return illustrationItemOfListRepository.searchListIllustrationCustomerOwn(id, dateFrom, dateTo, searchValue);
     }
 
 
-    public void saveIllustration(IllustrationDTO illustrationDTO){
-        Illustration illustration= new Illustration();
+    public void saveIllustration(IllustrationDTO illustrationDTO) {
+        Illustration illustration = new Illustration();
         illustration.setCreate_time(illustrationDTO.getCreate_time());
         illustration.setId_customer_info(illustrationDTO.getId_customer_info());
         illustration.setPayment_period_id(illustrationDTO.getPayment_period_id());
@@ -86,20 +91,20 @@ public class IllustrationService {
 
         illustMainBenifitRepository.save(illustrationDTO.getIllustrationMainBenifit());
 
-        if(illustrationDTO.getIllustrationSubBenifitList() != null && illustrationDTO.getIllustrationSubBenifitList().size() != 0){
-            for(IllustrationSubBenifit illustSub : illustrationDTO.getIllustrationSubBenifitList()){
+        if (illustrationDTO.getIllustrationSubBenifitList() != null && illustrationDTO.getIllustrationSubBenifitList().size() != 0) {
+            for (IllustrationSubBenifit illustSub : illustrationDTO.getIllustrationSubBenifitList()) {
                 illustSub.setId_illustration(illustration.getId());
-                illustSubBenifitRepository.save(illustSub  );
+                illustSubBenifitRepository.save(illustSub);
             }
         }
     }
 
-    public boolean checkExistIllustration(IllustrationDTO illustrationDTO){
-        return illustrationDTO.getId()== null  ? false : illRepository.existsById(illustrationDTO.getId());
+    public boolean checkExistIllustration(IllustrationDTO illustrationDTO) {
+        return illustrationDTO.getId() == null ? false : illRepository.existsById(illustrationDTO.getId());
     }
 
-    public void updateIllustration(IllustrationDTO illustrationDTO){
-        Optional<Illustration> illustration =  illRepository.findById(illustrationDTO.getId());
+    public void updateIllustration(IllustrationDTO illustrationDTO) {
+        Optional<Illustration> illustration = illRepository.findById(illustrationDTO.getId());
         illustration.get().setCreate_time(illustrationDTO.getCreate_time());
         illustration.get().setId_customer_info(illustrationDTO.getId_customer_info());
         illustration.get().setPayment_period_id(illustrationDTO.getPayment_period_id());
@@ -110,9 +115,9 @@ public class IllustrationService {
         Optional<IllustrationMainBenifit> illustrationMainBenifit = illustMainBenifitRepository.findById(illustrationDTO.getIllustrationMainBenifit().getId());
         illustMainBenifitRepository.save(illustrationMainBenifit.get());
 
-        if(illustrationDTO.getIllustrationSubBenifitList() != null && illustrationDTO.getIllustrationSubBenifitList().size() != 0){
-            for(IllustrationSubBenifit item : illustrationDTO.getIllustrationSubBenifitList()){
-                if(illustSubBenifitRepository.existsById(item.getId())){
+        if (illustrationDTO.getIllustrationSubBenifitList() != null && illustrationDTO.getIllustrationSubBenifitList().size() != 0) {
+            for (IllustrationSubBenifit item : illustrationDTO.getIllustrationSubBenifitList()) {
+                if (illustSubBenifitRepository.existsById(item.getId())) {
                     Optional<IllustrationSubBenifit> illustrationSubBenifit = illustSubBenifitRepository.findById(item.getId());
                     illustSubBenifitRepository.save(illustrationSubBenifit.get());
                 } else {
@@ -121,6 +126,14 @@ public class IllustrationService {
             }
 
         }
+    }
+
+    public List<MainBenefitScale> getAllMainBenefitScale(int id) {
+        return mainBenefitScaleRepository.getMainBenefitScaleByMainBenefitId(id);
+    }
+
+    public List<SubBenefitScale> getAllSubBenefitScale(int id) {
+        return subBenefitScaleRepository.getSubBenefitScaleBySubBenefitId(id);
     }
 
 }
