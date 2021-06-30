@@ -2,9 +2,7 @@ package com.is.issystem.controller.EmployeeController;
 
 import com.is.issystem.dto.IllustrationItemOfList;
 import com.is.issystem.dto.IllustrationDTO;
-import com.is.issystem.entities.IllustrationSubBenifit;
-import com.is.issystem.entities.MainBenefitScale;
-import com.is.issystem.entities.SubBenefitScale;
+import com.is.issystem.entities.*;
 import com.is.issystem.service.IllustrationService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +44,11 @@ public class IllustrationController {
     @GetMapping(value = "/get_all_sub_benefit/{id}")
     List<IllustrationSubBenifit> getAllSubBenefitById(@PathVariable("id") int id) {
         return illustrationService.getAllSubBenefitById(id);
+    }
+
+    @GetMapping(value = "/get_main_benefit/{id}")
+    IllustrationMainBenifit getMainBenefitByIdIll(@PathVariable("id") int id) {
+        return illustrationService.getMainBenefitByIdIll(id);
     }
 
     @GetMapping(value = "/get_all_main_benefit_scale/{id}")

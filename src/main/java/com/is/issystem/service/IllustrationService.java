@@ -136,4 +136,7 @@ public class IllustrationService {
         return subBenefitScaleRepository.getSubBenefitScaleBySubBenefitId(id);
     }
 
+    public IllustrationMainBenifit getMainBenefitByIdIll(int id) {
+        return  illustMainBenifitRepository.getIllustrationMainBenifitByillustID(id);
+    }
 }
