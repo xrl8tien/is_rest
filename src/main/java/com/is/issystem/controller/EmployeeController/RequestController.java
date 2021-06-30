@@ -1,5 +1,6 @@
 package com.is.issystem.controller.EmployeeController;
 import com.is.issystem.entities.Request;
+import com.is.issystem.entities.RequestClaimApprove;
 import com.is.issystem.service.RequestService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,18 @@ public class RequestController {
     @PostMapping(value = "/add_one_request")
     public ResponseEntity<?> addOneRequest(@RequestBody Request request){
         return ResponseEntity.status(HttpStatus.OK).body(requestService.addOneReq(request));
+    }
+
+    @PostMapping(value = "/add_claim_request")
+    public ResponseEntity<?> addClaimRequest(@RequestBody RequestClaimApprove requestClaimApprove){
+        return ResponseEntity.status(HttpStatus.OK).body(requestService.addClaimReq(requestClaimApprove));
+    }
+
+    @PostMapping(value = "/set_status_request")
+    public ResponseEntity<?> setStatusRequest(@RequestBody String data1){
+        JSONObject data = new JSONObject(data1);
+        requestService.setUpdateRequest(Integer.parseInt(data.get("id_request").toString()),data.get("description").toString(),data.get("approval_status").toString());
+        return ResponseEntity.status(HttpStatus.OK).body(data1);
     }
 
     //claim request
