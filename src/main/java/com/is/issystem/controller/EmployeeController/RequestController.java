@@ -1,4 +1,5 @@
 package com.is.issystem.controller.EmployeeController;
+import com.is.issystem.entities.Notification;
 import com.is.issystem.entities.Request;
 import com.is.issystem.entities.RequestClaimApprove;
 import com.is.issystem.service.RequestService;
@@ -82,6 +83,23 @@ public class RequestController {
     List<Request> searchAllClaimRequestApproval(@RequestBody String data){
         JSONObject requestObject = new JSONObject(data);
         return requestService.searchAllClaimRequestApproval(requestObject.getString("code_appraiser"),requestObject.getString("dateFrom"),requestObject.getString("dateTo"),requestObject.getString("searchValue"));
+    }
+
+    @PostMapping(value = "/get_all_approved_claim_request")
+    List<Request> getAllApprovedClaimRequest(@RequestBody String code_appraiser){
+        return requestService.getAllApprovedClaimReq(code_appraiser);
+    }
+
+    @PostMapping(value = "/search_all_approved_claim_request")
+    List<Request> searchAllApprovedClaimRequest(@RequestBody String data){
+        JSONObject requestObject = new JSONObject(data);
+        return requestService.searchAllApprovedClaimReq(requestObject.getString("code_appraiser"),requestObject.getString("dateFrom"),requestObject.getString("dateTo"),requestObject.getString("searchValue"));
+    }
+
+    //add notification
+    @PostMapping(value = "/add_one_notification")
+    public ResponseEntity<?> addOneRequest(@RequestBody Notification notification){
+        return ResponseEntity.status(HttpStatus.OK).body(requestService.addOneNotification(notification));
     }
 
 }

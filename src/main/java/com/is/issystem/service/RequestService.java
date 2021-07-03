@@ -1,9 +1,7 @@
 package com.is.issystem.service;
 
-import com.is.issystem.entities.ClaimRequest;
-import com.is.issystem.entities.Contract;
-import com.is.issystem.entities.Request;
-import com.is.issystem.entities.RequestClaimApprove;
+import com.is.issystem.entities.*;
+import com.is.issystem.repository.entity_repository.NotificationRepository;
 import com.is.issystem.repository.entity_repository.RequestClaimRepository;
 import com.is.issystem.repository.entity_repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +17,8 @@ public class RequestService {
     private RequestRepository requestRepository;
     @Autowired
     private RequestClaimRepository requestClaimRepository;
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     //contract request
     public List<Request> getAllContractRequestApproval(String code_appraiser) {
@@ -74,5 +74,17 @@ public class RequestService {
 
     public RequestClaimApprove addClaimReq(RequestClaimApprove requestClaimApprove) {
         return requestClaimRepository.save(requestClaimApprove);
+    }
+
+    public Notification addOneNotification(Notification notification) {
+        return notificationRepository.save(notification);
+    }
+
+    public List<Request> getAllApprovedClaimReq(String code_appraiser) {
+        return requestRepository.getAllApprovedClaimReq(code_appraiser);
+    }
+
+    public List<Request> searchAllApprovedClaimReq(String code_appraiser, String dateFrom, String dateTo, String searchValue) {
+        return requestRepository.searchAllApprovedClaimReq(code_appraiser, dateFrom, dateTo, searchValue);
     }
 }
