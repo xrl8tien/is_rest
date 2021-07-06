@@ -20,6 +20,8 @@ public class RequestService {
     @Autowired
     private NotificationRepository notificationRepository;
 
+
+
     //contract request
     public List<Request> getAllContractRequestApproval(String code_appraiser) {
         return requestRepository.getAllCheckReq(code_appraiser);
@@ -43,7 +45,9 @@ public class RequestService {
     }
 
     public Request addOneReq(Request request) {
-        return requestRepository.save(request);
+        Request req = requestRepository.save(request);
+        requestRepository.flush();
+        return req;
     }
 
     public void setUpdateRequest(Integer id_request, String description, String approval_status) {
@@ -87,4 +91,5 @@ public class RequestService {
     public List<Request> searchAllApprovedClaimReq(String code_appraiser, String dateFrom, String dateTo, String searchValue) {
         return requestRepository.searchAllApprovedClaimReq(code_appraiser, dateFrom, dateTo, searchValue);
     }
+
 }

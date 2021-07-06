@@ -1,16 +1,23 @@
 package com.is.issystem.controller.CustomerController;
 
+import com.google.cloud.storage.Storage;
 import com.is.issystem.commons.Ultility;
 import com.is.issystem.dto.ContractDTO;
 import com.is.issystem.dto.IllustrationDTO;
 import com.is.issystem.entities.CustomerAcc;
 import com.is.issystem.entities.Referencetable;
+import com.is.issystem.entities.Request;
+import com.is.issystem.entities.RequestAttachment;
 import com.is.issystem.service.*;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = {"/api/customer-api"})
@@ -35,6 +42,12 @@ public class CustomerController {
 
     @Autowired
     private IllustrationService illustrationService;
+
+    @Autowired
+    private RequestService requestService;
+
+    @Autowired
+    private Storage storage;
 
     @PostMapping(value = "/login")
     public ResponseEntity<?> loginCustomer(@RequestBody CustomerAcc data){
@@ -114,4 +127,20 @@ public class CustomerController {
     public ResponseEntity<?> getAllSubBenifit(){
         return ResponseEntity.status(HttpStatus.OK).body(subBenifitService.getAllSubBenifit());
     }
+
+    @PostMapping(value = "/add_one_customer_request")
+    public ResponseEntity<?> addOneCustomerRequest(@RequestBody Request request){
+        return ResponseEntity.status(HttpStatus.OK).body(requestService.addOneReq(request));
+    }
+
+    @PostMapping(value = "/upload_customer_file_request")
+    public ResponseEntity uploadFileRequest(@RequestParam("fileData") MultipartFile[] fileData) throws IOException {
+        return ResponseEntity.status(HttpStatus.OK).body(attachmentService.uploadRequestAttachmentToGCP(fileData,storage));
+    }
+
+    @PostMapping(value = "/save_customer_request_attachment")
+    public ResponseEntity<?> saveRequestAttachment(@RequestBody List<RequestAttachment> requestAttachments){
+        return ResponseEntity.status(HttpStatus.OK).body(attachmentService.updateRequestAttachment(requestAttachments));
+    }
+
 }
