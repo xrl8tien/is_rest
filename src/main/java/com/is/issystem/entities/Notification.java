@@ -25,4 +25,6 @@ public class Notification {
     private String url;
     @Column
     private Integer type;
+    @Column
+    private Date date;
 }

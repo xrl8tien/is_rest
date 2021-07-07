@@ -98,7 +98,7 @@ public class RequestController {
 
     //add notification
     @PostMapping(value = "/add_one_notification")
-    public ResponseEntity<?> addOneRequest(@RequestBody Notification notification){
+    public ResponseEntity<?> addOneNotification(@RequestBody Notification notification){
         return ResponseEntity.status(HttpStatus.OK).body(requestService.addOneNotification(notification));
     }
 

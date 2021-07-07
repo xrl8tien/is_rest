@@ -4,10 +4,7 @@ import com.google.cloud.storage.Storage;
 import com.is.issystem.commons.Ultility;
 import com.is.issystem.dto.ContractDTO;
 import com.is.issystem.dto.IllustrationDTO;
-import com.is.issystem.entities.CustomerAcc;
-import com.is.issystem.entities.Referencetable;
-import com.is.issystem.entities.Request;
-import com.is.issystem.entities.RequestAttachment;
+import com.is.issystem.entities.*;
 import com.is.issystem.service.*;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +42,9 @@ public class CustomerController {
 
     @Autowired
     private RequestService requestService;
+
+    @Autowired
+    private ContactService contactService;
 
     @Autowired
     private Storage storage;
@@ -141,6 +141,21 @@ public class CustomerController {
     @PostMapping(value = "/save_customer_request_attachment")
     public ResponseEntity<?> saveRequestAttachment(@RequestBody List<RequestAttachment> requestAttachments){
         return ResponseEntity.status(HttpStatus.OK).body(attachmentService.updateRequestAttachment(requestAttachments));
+    }
+
+    @GetMapping(value = "/get_all_province")
+    public ResponseEntity<?> getAllProvince(){
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.getAllProvince());
+    }
+
+    @PostMapping(value = "/get_all_district_by_id_province")
+        public ResponseEntity<?> getAllDistrictByIdProvince(@RequestBody Integer id_province){
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.getAllDistrictByIdProvince(id_province));
+    }
+
+    @PostMapping(value = "/add_one_contact")
+    public ResponseEntity<?> addOneContact(@RequestBody Contact contact){
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.addOneContact(contact));
     }
 
 }
