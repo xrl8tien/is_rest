@@ -66,7 +66,7 @@ public class RequestController {
     //claim request
     @PostMapping(value = "/get_all_claim_request")
     List<Request> getAllClaimRequest(@RequestBody String code_appraiser){
-        return requestService.getAllUncheckClaimReq(code_appraiser);
+        return requestService.getAllUncheckClaimReq();
     }
     @PostMapping(value = "/search_all_claim_request")
     List<Request> searchAllClaimRequest(@RequestBody String data){

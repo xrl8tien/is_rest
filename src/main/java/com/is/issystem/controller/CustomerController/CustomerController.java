@@ -95,6 +95,21 @@ public class CustomerController {
         return contractService.getDetailContractForCustomer(data);
     }
 
+    @GetMapping(value = "/get_all_sub_benefit/{id}")
+    List<IllustrationSubBenifit> getAllSubBenefitById(@PathVariable("id") int id) {
+        return illustrationService.getAllSubBenefitById(id);
+    }
+
+    @GetMapping(value = "/get_all_main_benefit_scale/{id}")
+    List<MainBenefitScale> getAllMainBenefitScaleByMainBenefitId(@PathVariable("id") int id) {
+        return illustrationService.getAllMainBenefitScale(id);
+    }
+
+    @GetMapping(value = "/get_all_sub_benefit_scale/{id}")
+    List<SubBenefitScale> getAllSubBenefitScaleBySubBenefitId(@PathVariable("id") int id) {
+        return illustrationService.getAllSubBenefitScale(id);
+    }
+
     @PostMapping(value = "/get_all_reference_table")
     public ResponseEntity<?> getAllReference(@RequestBody String token){
         if(Ultility.getCodeInTokenKey(token)!=null){
@@ -156,6 +171,22 @@ public class CustomerController {
     @PostMapping(value = "/add_one_contact")
     public ResponseEntity<?> addOneContact(@RequestBody Contact contact){
         return ResponseEntity.status(HttpStatus.OK).body(contactService.addOneContact(contact));
+    }
+
+    @PostMapping(value = "/get_all_customer_request")
+    List<Request> getAllCustomerRequest(@RequestBody String code_sender){
+        return requestService.getAllCustomerRequest(code_sender);
+    }
+    @PostMapping(value = "/search_all_customer_request")
+    List<Request> searchAllCustomerRequest(@RequestBody String data){
+        JSONObject requestObject = new JSONObject(data);
+        return requestService.searchAllCustomerRequest(requestObject.getString("code_sender"),requestObject.getString("dateFrom"),requestObject.getString("dateTo"),requestObject.getString("searchValue"));
+    }
+
+    //notification
+    @PostMapping(value = "/get_all_notification_by_id_customer")
+    List<Notification> getAllNotificationByIdCustomer(@RequestBody Integer id_customer){
+        return requestService.getAllNotificationByIdCustomer(id_customer);
     }
 
 }

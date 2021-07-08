@@ -61,35 +61,49 @@ public class RequestService {
 
     //claim request
     public List<Request> getAllClaimRequestApproval(String code_appraiser) {
-        return requestRepository.getAllCheckClaimReq(code_appraiser);
+        return requestRepository.getAllCheckClaimReq();
     }
 
     public List<Request> searchAllClaimRequestApproval(String code_appraiser, String dateFrom, String dateTo, String searchValue) {
-        return requestRepository.searchAllCheckClaimReq(code_appraiser, dateFrom, dateTo, searchValue);
+        return requestRepository.searchAllCheckClaimReq(dateFrom, dateTo, searchValue);
     }
 
-    public List<Request> getAllUncheckClaimReq(String code_appraiser) {
-        return requestRepository.getAllUncheckClaimReq(code_appraiser);
+    public List<Request> getAllUncheckClaimReq() {
+        return requestRepository.getAllUncheckClaimReq();
     }
 
     public List<Request> searchAllUncheckClaimReq(String code_appraiser, String dateFrom, String dateTo, String searchValue) {
-        return requestRepository.searchAllUncheckClaimReq(code_appraiser, dateFrom, dateTo, searchValue);
+        return requestRepository.searchAllUncheckClaimReq(dateFrom, dateTo, searchValue);
     }
 
     public RequestClaimApprove addClaimReq(RequestClaimApprove requestClaimApprove) {
         return requestClaimRepository.save(requestClaimApprove);
     }
 
+    public List<Request> getAllApprovedClaimReq(String code_appraiser) {
+        return requestRepository.getAllApprovedClaimReq();
+    }
+
+    public List<Request> searchAllApprovedClaimReq(String code_appraiser, String dateFrom, String dateTo, String searchValue) {
+        return requestRepository.searchAllApprovedClaimReq(dateFrom, dateTo, searchValue);
+    }
+
+    //customer request
+    public List<Request> getAllCustomerRequest(String code_sender) {
+        return requestRepository.getAllCustomerClaimReq(code_sender);
+    }
+
+    public List<Request> searchAllCustomerRequest(String code_sender, String dateFrom, String dateTo, String searchValue) {
+        return requestRepository.searchAllCustomerClaimReq(code_sender, dateFrom, dateTo, searchValue);
+    }
+
+    //notification
     public Notification addOneNotification(Notification notification) {
         return notificationRepository.save(notification);
     }
 
-    public List<Request> getAllApprovedClaimReq(String code_appraiser) {
-        return requestRepository.getAllApprovedClaimReq(code_appraiser);
-    }
-
-    public List<Request> searchAllApprovedClaimReq(String code_appraiser, String dateFrom, String dateTo, String searchValue) {
-        return requestRepository.searchAllApprovedClaimReq(code_appraiser, dateFrom, dateTo, searchValue);
+    public List<Notification> getAllNotificationByIdCustomer(Integer id_customer) {
+        return notificationRepository.getAllNotificationByIdCustomer(id_customer);
     }
 
 }
