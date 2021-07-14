@@ -34,6 +34,10 @@ public class ContactService {
         return districtRepository.getAllDistrictByCodeSale(code_sale);
     }
 
+    public List<String> getDistrictNameById(List<Integer> ids) {
+        return districtRepository.getDistrictNameById(ids);
+    }
+
     public List<Contact> getAllContactByProvince(String province) {
         return contactRepository.getAllContactByProvince(province);
     }

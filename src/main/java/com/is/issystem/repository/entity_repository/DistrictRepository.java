@@ -22,4 +22,8 @@ public interface DistrictRepository extends JpaRepository<District, Integer> {
                                 "and code_sale = ?1", nativeQuery = true)
     List<Integer> getAllDistrictByCodeSale(String code_sale);
 
+    @Query(value = "select name from is_agency_db.district " +
+            "where id in ?1", nativeQuery = true)
+    List<String> getDistrictNameById(List<Integer> ids);
+
 }

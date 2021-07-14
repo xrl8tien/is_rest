@@ -105,6 +105,11 @@ public class CustomerInfoController {
         return ResponseEntity.status(HttpStatus.OK).body(contactService.getAllDistrictByCodeSale(code_sale));
     }
 
+    @PostMapping(value = "/get_district_name_by_id")
+    public ResponseEntity<?> getDistrictNameById(@RequestBody List<Integer> ids) {
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.getDistrictNameById(ids));
+    }
+
     @PostMapping(value = "/update_contact")
     public ResponseEntity<?> updateContact(@RequestBody String data) {
         JSONObject infoObject = new JSONObject(data);
