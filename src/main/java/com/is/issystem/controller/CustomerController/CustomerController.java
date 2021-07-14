@@ -158,6 +158,7 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(attachmentService.updateRequestAttachment(requestAttachments));
     }
 
+    //contact
     @GetMapping(value = "/get_all_province")
     public ResponseEntity<?> getAllProvince(){
         return ResponseEntity.status(HttpStatus.OK).body(contactService.getAllProvince());
@@ -168,11 +169,14 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(contactService.getAllDistrictByIdProvince(id_province));
     }
 
+
     @PostMapping(value = "/add_one_contact")
     public ResponseEntity<?> addOneContact(@RequestBody Contact contact){
         return ResponseEntity.status(HttpStatus.OK).body(contactService.addOneContact(contact));
     }
 
+
+    // customer claim request
     @PostMapping(value = "/get_all_customer_request")
     List<Request> getAllCustomerRequest(@RequestBody String code_sender){
         return requestService.getAllCustomerRequest(code_sender);
@@ -180,7 +184,9 @@ public class CustomerController {
     @PostMapping(value = "/search_all_customer_request")
     List<Request> searchAllCustomerRequest(@RequestBody String data){
         JSONObject requestObject = new JSONObject(data);
-        return requestService.searchAllCustomerRequest(requestObject.getString("code_sender"),requestObject.getString("dateFrom"),requestObject.getString("dateTo"),requestObject.getString("searchValue"));
+        return requestService.searchAllCustomerRequest(
+                requestObject.getString("code_sender"),requestObject.getString("dateFrom"),
+                requestObject.getString("dateTo"),requestObject.getString("searchValue"));
     }
 
     //notification

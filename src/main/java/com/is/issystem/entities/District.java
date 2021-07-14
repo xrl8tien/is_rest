@@ -19,4 +19,6 @@ public class District {
     private String type;
     @Column(name = "id_province")
     private Integer id_province;
+    @Column(name = "code_sale")
+    private String code_sale;
 }

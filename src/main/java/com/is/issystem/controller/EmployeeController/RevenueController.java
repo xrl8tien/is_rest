@@ -23,7 +23,7 @@ public class RevenueController {
     }
 
     @PostMapping(value = "/get_all_revenue_employee")
-    public ResponseEntity saveOneRevenue(@RequestBody String code_em_support){
+    public ResponseEntity getAllRevenueEmployee(@RequestBody String code_em_support){
         return ResponseEntity.status(HttpStatus.OK).body(revenueService.getAllRevenueEmployee(code_em_support));
     }
     @PostMapping(value = "/get_all_revenue_employee_month_before")
@@ -44,6 +44,10 @@ public class RevenueController {
         return ResponseEntity.status(HttpStatus.OK).body(revenueService.getAllIncomeForSaler(code_em_support));
     }
 
-
+    // lấy kpi cho từng employee
+    @PostMapping(value = "/get_all_kpi_employee")
+    public ResponseEntity getAllKpiEmployee(@RequestBody String code_employee){
+        return ResponseEntity.status(HttpStatus.OK).body(revenueService.getAllKpiEmployee(code_employee));
+    }
 
 }

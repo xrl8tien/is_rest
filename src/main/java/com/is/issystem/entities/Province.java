@@ -17,7 +17,7 @@ public class Province {
     private String name;
     @Column(name = "type")
     private String type;
-    @Column(name = "slug")
-    private String slug;
+    @Column(name = "code_sale_executive")
+    private String code_sale_executive;
 }
 
