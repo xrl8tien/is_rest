@@ -39,6 +39,9 @@ public class CustomerInfoService {
     @Autowired
     CustomerAccRepository customerAccRepository;
 
+    @Autowired
+    GroupMemberRepository groupMemberRepository;
+
 
     public Boolean updateCustomerInfo(CustomerDTO customerDTO){
 
@@ -234,27 +237,25 @@ public class CustomerInfoService {
         return customerDTORepository.getAllCustomerInfo(code_em_support);
     }
 
+    public List<CustomerDTO> findAllEx(List<String> codes_em_support) {
+        return customerDTORepository.getAllCustomerInfoEx(codes_em_support);
+    }
+
     public List<CustomerDTO> findAllSearch(String code_em_support,String dateFrom,String dateTo,String searchValue) throws ParseException {
-
-//        searchValue = "%"+searchValue+"%";
-//        String dateFr = "1900/01/01";
-//        String dateT = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
-//        if(dateFrom=="null" && dateTo=="null"){
-//            return customerDTORepository.getAllCustomerInfoSearch(code_em_support,dateFr,dateT,searchValue);
-//        }
-//         else if(dateTo=="null" || dateFrom=="null"){
-//            return customerDTORepository.getAllCustomerInfoSearch(code_em_support,dateFrom=="null"?dateFr:dateFrom,dateTo=="null"?dateT:dateTo,searchValue);
-//        } else {
-//            return customerDTORepository.getAllCustomerInfoSearch(code_em_support,dateFrom,dateTo,searchValue);
-//        }
-
         return customerDTORepository.getAllCustomerInfoSearch(code_em_support,dateFrom,dateTo,searchValue);
+    }
 
+    public List<CustomerDTO> findAllSearchEx(List<String> codes_em_support,String dateFrom,String dateTo,String searchValue) throws ParseException {
+        return customerDTORepository.getAllCustomerInfoSearchEx(codes_em_support,dateFrom,dateTo,searchValue);
     }
 
     // query tất cả khách hàng nhưng không có illustration, contract các khách hàng đó
     public List<CustomerDTO> findAllCust(String code_em_support) {
         return customerDTORepository.getCustomerInfobySaler(code_em_support);
+    }
+
+    public List<CustomerDTO> findAllCustEx(List<String> codes_em_support) {
+        return customerDTORepository.getCustomerInfobySalerEx(codes_em_support);
     }
 
     public List<CustomerDTO> getAllCustomerInfoAdmin() {
@@ -263,6 +264,10 @@ public class CustomerInfoService {
 
     public List<CustomerDTO> searchAllCustomerInfoAdmin(String dateFrom,String dateTo,String searchValue) {
         return customerDTORepository.searchAllCustomerInfoAdmin(dateFrom,dateTo,searchValue);
+    }
+
+    public List<String> getAllCodeSaleByCodeEx(String code_ex){
+        return groupMemberRepository.getAllCodeSaleByCodeEx(code_ex);
     }
 
 

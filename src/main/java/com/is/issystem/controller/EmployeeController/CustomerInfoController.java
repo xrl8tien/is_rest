@@ -3,6 +3,7 @@ package com.is.issystem.controller.EmployeeController;
 import com.is.issystem.commons.Ultility;
 import com.is.issystem.dto.ContactDTO;
 import com.is.issystem.dto.CustomerDTO;
+import com.is.issystem.dto.CustomerInfoDTO;
 import com.is.issystem.entities.Contact;
 import com.is.issystem.entities.Contract;
 import com.is.issystem.service.ContactService;
@@ -36,6 +37,22 @@ public class CustomerInfoController {
     @PostMapping(value = "/get_all_customer_info")
     List<CustomerDTO> findAll(@RequestBody String code_em_support) {
         return customerInfoService.findAll(code_em_support);
+    }
+
+    @PostMapping(value = "/get_all_customer_ex")
+    List<CustomerDTO> findAllCustEx(@RequestBody List<String> codes_em_support) {
+        return customerInfoService.findAllCustEx(codes_em_support);
+    }
+
+
+    @PostMapping(value = "/get_all_customer_info_ex")
+    List<CustomerDTO> findAllEx(@RequestBody List<String> codes_em_support) {
+        return customerInfoService.findAllEx(codes_em_support);
+    }
+
+    @PostMapping(value = "/search_all_customer_info_ex")
+    List<CustomerDTO> searchAllCustomerEx(@RequestBody CustomerInfoDTO data) throws ParseException {
+        return customerInfoService.findAllSearchEx(data.getCodes_saler(), data.getDateFrom(), data.getDateTo(), data.getSearchValue());
     }
 
     @PostMapping(value = "/search_all_customer_info")
@@ -114,6 +131,11 @@ public class CustomerInfoController {
     public ResponseEntity<?> updateContact(@RequestBody String data) {
         JSONObject infoObject = new JSONObject(data);
         return ResponseEntity.status(HttpStatus.OK).body(contactService.updateContact(infoObject.getString("status"), Integer.parseInt(infoObject.get("id").toString())));
+    }
+
+    @PostMapping(value = "/get_all_code_sale_by_code_ex")
+    public ResponseEntity<?> getAllCodeSaleByCodeEx(@RequestBody String code_ex) {
+        return ResponseEntity.status(HttpStatus.OK).body(customerInfoService.getAllCodeSaleByCodeEx(code_ex));
     }
 
 }
