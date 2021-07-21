@@ -45,4 +45,14 @@ public class RevenueService {
     public List<Kpi> getAllKpiEmployee(String code_employee) {
         return kpiRepository.getAllKpiEmployee(code_employee);
     }
+
+    //sale executive
+    public List<Revenue> getAllRevenueEmployeeEx(List<String> codes_em_support) {
+        return revenueRepository.getAllRevenueEmployeeEx(codes_em_support);
+    }
+
+    public List<Income> getAllIncomeForSalerEx(List<String> codes_em_support) {
+        return incomeRepository.listIncomeEx(codes_em_support);
+    }
+
 }

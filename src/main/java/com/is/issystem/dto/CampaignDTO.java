@@ -30,4 +30,7 @@ public class CampaignDTO {
 
     @Column
     private int id_customer;
+
+    @Column
+    private String code_em_support;
 }

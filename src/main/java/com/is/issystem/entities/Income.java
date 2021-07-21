@@ -26,5 +26,7 @@ public class Income {
     Date end_time;
     @Column
     Date create_time;
+    @Column
+    String code_em_support;
 
 }

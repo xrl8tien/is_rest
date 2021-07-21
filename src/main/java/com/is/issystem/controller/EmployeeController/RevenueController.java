@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "api/revenue/")
 public class RevenueController {
@@ -26,6 +28,7 @@ public class RevenueController {
     public ResponseEntity getAllRevenueEmployee(@RequestBody String code_em_support){
         return ResponseEntity.status(HttpStatus.OK).body(revenueService.getAllRevenueEmployee(code_em_support));
     }
+
     @PostMapping(value = "/get_all_revenue_employee_month_before")
     public ResponseEntity getRevenueEmployeeMonthBefore(@RequestBody String data){
         JSONObject monthRevenue = new JSONObject(data);
@@ -48,6 +51,17 @@ public class RevenueController {
     @PostMapping(value = "/get_all_kpi_employee")
     public ResponseEntity getAllKpiEmployee(@RequestBody String code_employee){
         return ResponseEntity.status(HttpStatus.OK).body(revenueService.getAllKpiEmployee(code_employee));
+    }
+
+    //sale executive
+    @PostMapping(value = "/get_all_revenue_employee_ex")
+    public ResponseEntity getAllRevenueEmployeeEx(@RequestBody List<String> codes_em_support){
+        return ResponseEntity.status(HttpStatus.OK).body(revenueService.getAllRevenueEmployeeEx(codes_em_support));
+    }
+
+    @PostMapping(value = "/get_all_income_saler_ex")
+    public ResponseEntity getAllIncomeSalerEx(@RequestBody List<String> codes_em_support){
+        return ResponseEntity.status(HttpStatus.OK).body(revenueService.getAllIncomeForSalerEx(codes_em_support));
     }
 
 }

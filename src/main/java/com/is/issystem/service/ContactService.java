@@ -30,6 +30,10 @@ public class ContactService {
         return districtRepository.getAllDistrictByIdProvince(id_province);
     }
 
+    public Province getProvinceByCodeEx(String code_sale_executive) {
+        return provinceRepository.getProvinceByCodeEx(code_sale_executive);
+    }
+
     public List<Integer> getAllDistrictByCodeSale(String code_sale) {
         return districtRepository.getAllDistrictByCodeSale(code_sale);
     }
@@ -38,8 +42,20 @@ public class ContactService {
         return districtRepository.getDistrictNameById(ids);
     }
 
-    public List<Contact> getAllContactByProvince(String province) {
-        return contactRepository.getAllContactByProvince(province);
+    public List<Contact> getAllNewContactByProvince(Integer id_province) {
+        return contactRepository.getAllNewContactByIdProvince(id_province);
+    }
+
+    public List<Contact> searchAllNewContactByIdProvince(Integer id_province, String dateFrom, String dateTo, String searchValue) {
+        return contactRepository.searchAllNewContactByIdProvince(id_province, dateFrom, dateTo, searchValue);
+    }
+
+    public List<Contact> getAllOldContactByProvince(Integer id_province) {
+        return contactRepository.getAllOldContactByIdProvince(id_province);
+    }
+
+    public List<Contact> searchAllOldContactByIdProvince(Integer id_province, String dateFrom, String dateTo, String searchValue) {
+        return contactRepository.searchAllOldContactByIdProvince(id_province, dateFrom, dateTo, searchValue);
     }
 
     public List<Contact> getAllNewContactByDistrictIds(List<Integer> ids) {
@@ -62,10 +78,21 @@ public class ContactService {
         return contactRepository.save(contact);
     }
 
-    public Contact updateContact(String status, Integer id) {
+    public Contact updateContact(String code_sale, String status, Integer id) {
         Optional<Contact> contact = contactRepository.findById(id);
+        contact.get().setCode_sale(code_sale);
         contact.get().setStatus(status);
         return contactRepository.save(contact.get());
+    }
+
+    public District updateDistrict(District district) {
+        Optional<District> district1 = districtRepository.findById(district.getId());
+        district1.get().setCode_sale(district.getCode_sale());
+        return districtRepository.save(district1.get());
+    }
+
+    public Optional<District> findDistrictById(Integer id) {
+        return districtRepository.findById(id);
     }
 
 }

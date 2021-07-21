@@ -47,8 +47,17 @@ public class ContractService {
         return contractRepository.getAllContractCount(code_em_support,monthDate);   
     }
 
-    public ContractDTO getDetailContractForSaler(String code_em_support, Integer id){
-         return contractDTORepository.getDetailContractForSaler(code_em_support,id);
+    public ContractDTO getDetailContractForSaler(Integer id){
+         return contractDTORepository.getDetailContractForSaler(id);
+    }
+
+    //sale executive
+    public List<ContractDTO> getAllContractEx(List<String> codes_em_support){
+        return contractDTORepository.getAllContractDTOEx(codes_em_support);
+    }
+
+    public List<ContractDTO> searchAllContractEx(List<String> codes_em_support,String dateFrom,String dateTo,String searchValue){
+        return contractDTORepository.searchAllContractDTOEx(codes_em_support,dateFrom,dateTo,searchValue);
     }
 
     // lấy detail contract cho 1 khách hàng ở trang website của customer

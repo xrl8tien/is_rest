@@ -1,6 +1,7 @@
 package com.is.issystem.controller.EmployeeController;
 
 import com.is.issystem.dto.ContractDTO;
+import com.is.issystem.dto.CustomerInfoDTO;
 import com.is.issystem.entities.Contract;
 import com.is.issystem.entities.ContractChangeHistory;
 import com.is.issystem.entities.FeePaymentHistory;
@@ -59,9 +60,8 @@ public class ContractController {
     }
     // lấy hợp đồng của 1 saler
     @PostMapping(value = "/get_detail_contract")
-    ContractDTO getDetailContract(@RequestBody String data){
-        JSONObject jsonObject = new JSONObject(data);
-        return contractService.getDetailContractForSaler(jsonObject.getString("code"),jsonObject.getInt("id"));
+    ContractDTO getDetailContract(@RequestBody Integer id){
+        return contractService.getDetailContractForSaler(id);
     }
 
     @PostMapping(value = "/get_detail_contract_for_customer")
@@ -91,4 +91,16 @@ public class ContractController {
         JSONObject monthRevenue = new JSONObject(data);
         return ResponseEntity.status(HttpStatus.OK).body(contractService.getCountNewContract(monthRevenue.get("code_em_support").toString(),Integer.parseInt(monthRevenue.get("monthDate").toString())));
     }
+
+    //sale executive
+    @PostMapping(value = "/get_all_contract_of_employee_ex")
+    List<ContractDTO> getAllContractEx(@RequestBody List<String> codes_em_support){
+        return contractService.getAllContractEx(codes_em_support);
+    }
+
+    @PostMapping(value = "/search_all_contract_of_employee_ex")
+    List<ContractDTO> searchAllContractEx(@RequestBody CustomerInfoDTO data){
+        return contractService.searchAllContractEx(data.getCodes_saler(), data.getDateFrom(), data.getDateTo(), data.getSearchValue());
+    }
+
 }

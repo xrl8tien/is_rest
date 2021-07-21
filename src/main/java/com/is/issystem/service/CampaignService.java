@@ -24,6 +24,14 @@ public class CampaignService {
         return campaignDTORepository.searchListCampaign(code_em_support,create_time,end_time,searchValue);
     }
 
+    public List<CampaignDTO> getAllCampaignEx(List<String> codes_em_support){
+        return campaignDTORepository.listCampaignEx(codes_em_support);
+    }
+
+    public List<CampaignDTO> searchAllCampaignEx(List<String> codes_em_support, String create_time, String end_time, String searchValue){
+        return campaignDTORepository.searchListCampaignEx(codes_em_support,create_time,end_time,searchValue);
+    }
+
     public void addOneCampaign(String code, String end_time){
          campaignRepository.addOneCampaign(code,end_time);
     }

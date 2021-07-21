@@ -6,6 +6,7 @@ import com.is.issystem.dto.CustomerDTO;
 import com.is.issystem.dto.CustomerInfoDTO;
 import com.is.issystem.entities.Contact;
 import com.is.issystem.entities.Contract;
+import com.is.issystem.entities.District;
 import com.is.issystem.service.ContactService;
 import com.is.issystem.service.CustomerInfoService;
 import org.json.JSONObject;
@@ -97,6 +98,11 @@ public class CustomerInfoController {
         return ResponseEntity.status(HttpStatus.OK).body(customerInfoService.getOneInfo(Integer.parseInt(data.get("id").toString()), Ultility.getCodeInTokenKey(data.get("token_key").toString())));
     }
 
+    @PostMapping(value = "/get_one_customer_info_ex")
+    public ResponseEntity<?> getOneCustomerInfoByEx(@RequestBody Integer id_cust_info){
+        return ResponseEntity.status(HttpStatus.OK).body(customerInfoService.getOneInfo(id_cust_info));
+    }
+
     @PostMapping(value = "/get_all_new_contact_by_district_ids")
     public List<Contact> getAllNewContactByDistrictIds(@RequestBody List<Integer> ids) {
         return contactService.getAllNewContactByDistrictIds(ids);
@@ -117,6 +123,33 @@ public class CustomerInfoController {
         return contactService.searchAllOldContact(data.getIds(), data.getDateFrom(), data.getDateTo(), data.getSearchValue());
     }
 
+    @PostMapping(value = "/get_all_new_contact_by_id_province")
+    public List<Contact> getAllNewContactByProvince(@RequestBody Integer id_province) {
+        return contactService.getAllNewContactByProvince(id_province);
+    }
+
+    @PostMapping(value = "/search_all_new_contact_by_id_province")
+    public List<Contact> searchAllNewContactByIdProvince(@RequestBody String data) {
+        JSONObject data1 = new JSONObject(data);
+        return contactService.searchAllNewContactByIdProvince(Integer.parseInt(data1.get("id_province").toString()), data1.get("dateFrom").toString(), data1.get("dateTo").toString(), data1.get("searchValue").toString());
+    }
+
+    @PostMapping(value = "/get_all_old_contact_by_id_province")
+    public List<Contact> getAllOldContactByProvince(@RequestBody Integer id_province) {
+        return contactService.getAllOldContactByProvince(id_province);
+    }
+
+    @PostMapping(value = "/search_all_old_contact_by_id_province")
+    public List<Contact> searchAllOldContactByIdProvince(@RequestBody String data) {
+        JSONObject data1 = new JSONObject(data);
+        return contactService.searchAllOldContactByIdProvince(Integer.parseInt(data1.get("id_province").toString()), data1.get("dateFrom").toString(), data1.get("dateTo").toString(), data1.get("searchValue").toString());
+    }
+
+    @PostMapping(value = "/get_province_by_code_ex")
+    public ResponseEntity<?> getProvinceByCodeEx(@RequestBody String code_sale_executive) {
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.getProvinceByCodeEx(code_sale_executive));
+    }
+
     @PostMapping(value = "/get_all_district_by_code_sale")
     public ResponseEntity<?> getAllDistrictByCodeSale(@RequestBody String code_sale) {
         return ResponseEntity.status(HttpStatus.OK).body(contactService.getAllDistrictByCodeSale(code_sale));
@@ -127,10 +160,25 @@ public class CustomerInfoController {
         return ResponseEntity.status(HttpStatus.OK).body(contactService.getDistrictNameById(ids));
     }
 
+    @PostMapping(value = "/get_all_district_by_id_province")
+    public ResponseEntity<?> getAllDistrictByIdProvince(@RequestBody Integer id_province) {
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.getAllDistrictByIdProvince(id_province));
+    }
+
     @PostMapping(value = "/update_contact")
     public ResponseEntity<?> updateContact(@RequestBody String data) {
         JSONObject infoObject = new JSONObject(data);
-        return ResponseEntity.status(HttpStatus.OK).body(contactService.updateContact(infoObject.getString("status"), Integer.parseInt(infoObject.get("id").toString())));
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.updateContact(infoObject.getString("code_sale"), infoObject.getString("status"), Integer.parseInt(infoObject.get("id").toString())));
+    }
+
+    @PostMapping(value = "/update_district")
+    public ResponseEntity<?> updateContact(@RequestBody District district) {
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.updateDistrict(district));
+    }
+
+    @PostMapping(value = "/find_district_by_id")
+    public ResponseEntity<?> findDistrictById(@RequestBody Integer id) {
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.findDistrictById(id));
     }
 
     @PostMapping(value = "/get_all_code_sale_by_code_ex")

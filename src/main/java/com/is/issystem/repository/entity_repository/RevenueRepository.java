@@ -19,4 +19,7 @@ public interface RevenueRepository extends JpaRepository<Revenue,Integer> {
 
     @Query(nativeQuery = true,value = "SELECT * FROM is_agency_db.revenue where code_employee = ?1 and year(create_time)=?2-1")
     public List<Revenue> getRevenueEmployeeYearBefore(String code_em_support, Integer YearDate);
+
+    @Query(nativeQuery = true,value = "SELECT * FROM is_agency_db.revenue where code_employee in ?1")
+    public List<Revenue> getAllRevenueEmployeeEx(List<String> codes_em_support);
 }
