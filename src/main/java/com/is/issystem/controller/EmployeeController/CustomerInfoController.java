@@ -2,6 +2,7 @@ package com.is.issystem.controller.EmployeeController;
 
 import com.is.issystem.commons.Ultility;
 import com.is.issystem.dto.ContactDTO;
+import com.is.issystem.dto.ContactInfoDTO;
 import com.is.issystem.dto.CustomerDTO;
 import com.is.issystem.dto.CustomerInfoDTO;
 import com.is.issystem.entities.Contact;
@@ -104,43 +105,43 @@ public class CustomerInfoController {
     }
 
     @PostMapping(value = "/get_all_new_contact_by_district_ids")
-    public List<Contact> getAllNewContactByDistrictIds(@RequestBody List<Integer> ids) {
+    public List<ContactInfoDTO> getAllNewContactByDistrictIds(@RequestBody List<Integer> ids) {
         return contactService.getAllNewContactByDistrictIds(ids);
     }
 
     @PostMapping(value = "/search_all_new_contact")
-    public List<Contact> searchAllNewContact(@RequestBody ContactDTO data) {
+    public List<ContactInfoDTO> searchAllNewContact(@RequestBody ContactDTO data) {
         return contactService.searchAllNewContact(data.getIds(), data.getDateFrom(), data.getDateTo(), data.getSearchValue());
     }
 
     @PostMapping(value = "/get_all_old_contact_by_district_ids")
-    public List<Contact> getAllOldContactByDistrictIds(@RequestBody List<Integer> ids) {
+    public List<ContactInfoDTO> getAllOldContactByDistrictIds(@RequestBody List<Integer> ids) {
         return contactService.getAllOldContactByDistrictIds(ids);
     }
 
     @PostMapping(value = "/search_all_old_contact")
-    public List<Contact> searchAllOldContact(@RequestBody ContactDTO data) {
+    public List<ContactInfoDTO> searchAllOldContact(@RequestBody ContactDTO data) {
         return contactService.searchAllOldContact(data.getIds(), data.getDateFrom(), data.getDateTo(), data.getSearchValue());
     }
 
     @PostMapping(value = "/get_all_new_contact_by_id_province")
-    public List<Contact> getAllNewContactByProvince(@RequestBody Integer id_province) {
+    public List<ContactInfoDTO> getAllNewContactByProvince(@RequestBody Integer id_province) {
         return contactService.getAllNewContactByProvince(id_province);
     }
 
     @PostMapping(value = "/search_all_new_contact_by_id_province")
-    public List<Contact> searchAllNewContactByIdProvince(@RequestBody String data) {
+    public List<ContactInfoDTO> searchAllNewContactByIdProvince(@RequestBody String data) {
         JSONObject data1 = new JSONObject(data);
         return contactService.searchAllNewContactByIdProvince(Integer.parseInt(data1.get("id_province").toString()), data1.get("dateFrom").toString(), data1.get("dateTo").toString(), data1.get("searchValue").toString());
     }
 
     @PostMapping(value = "/get_all_old_contact_by_id_province")
-    public List<Contact> getAllOldContactByProvince(@RequestBody Integer id_province) {
+    public List<ContactInfoDTO> getAllOldContactByProvince(@RequestBody Integer id_province) {
         return contactService.getAllOldContactByProvince(id_province);
     }
 
     @PostMapping(value = "/search_all_old_contact_by_id_province")
-    public List<Contact> searchAllOldContactByIdProvince(@RequestBody String data) {
+    public List<ContactInfoDTO> searchAllOldContactByIdProvince(@RequestBody String data) {
         JSONObject data1 = new JSONObject(data);
         return contactService.searchAllOldContactByIdProvince(Integer.parseInt(data1.get("id_province").toString()), data1.get("dateFrom").toString(), data1.get("dateTo").toString(), data1.get("searchValue").toString());
     }

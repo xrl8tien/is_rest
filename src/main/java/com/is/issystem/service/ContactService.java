@@ -1,8 +1,10 @@
 package com.is.issystem.service;
 
+import com.is.issystem.dto.ContactInfoDTO;
 import com.is.issystem.entities.Contact;
 import com.is.issystem.entities.District;
 import com.is.issystem.entities.Province;
+import com.is.issystem.repository.entity_dto_repository.ContactInfoDTORepository;
 import com.is.issystem.repository.entity_repository.ContactRepository;
 import com.is.issystem.repository.entity_repository.DistrictRepository;
 import com.is.issystem.repository.entity_repository.ProvinceRepository;
@@ -21,6 +23,8 @@ public class ContactService {
     ProvinceRepository provinceRepository;
     @Autowired
     ContactRepository contactRepository;
+    @Autowired
+    ContactInfoDTORepository contactInfoDTORepository;
 
     public List<Province> getAllProvince() {
         return provinceRepository.findAll();
@@ -38,40 +42,40 @@ public class ContactService {
         return districtRepository.getAllDistrictByCodeSale(code_sale);
     }
 
-    public List<String> getDistrictNameById(List<Integer> ids) {
+    public List<District> getDistrictNameById(List<Integer> ids) {
         return districtRepository.getDistrictNameById(ids);
     }
 
-    public List<Contact> getAllNewContactByProvince(Integer id_province) {
-        return contactRepository.getAllNewContactByIdProvince(id_province);
+    public List<ContactInfoDTO> getAllNewContactByProvince(Integer id_province) {
+        return contactInfoDTORepository.getAllNewContactByIdProvince(id_province);
     }
 
-    public List<Contact> searchAllNewContactByIdProvince(Integer id_province, String dateFrom, String dateTo, String searchValue) {
-        return contactRepository.searchAllNewContactByIdProvince(id_province, dateFrom, dateTo, searchValue);
+    public List<ContactInfoDTO> searchAllNewContactByIdProvince(Integer id_province, String dateFrom, String dateTo, String searchValue) {
+        return contactInfoDTORepository.searchAllNewContactByIdProvince(id_province, dateFrom, dateTo, searchValue);
     }
 
-    public List<Contact> getAllOldContactByProvince(Integer id_province) {
-        return contactRepository.getAllOldContactByIdProvince(id_province);
+    public List<ContactInfoDTO> getAllOldContactByProvince(Integer id_province) {
+        return contactInfoDTORepository.getAllOldContactByIdProvince(id_province);
     }
 
-    public List<Contact> searchAllOldContactByIdProvince(Integer id_province, String dateFrom, String dateTo, String searchValue) {
-        return contactRepository.searchAllOldContactByIdProvince(id_province, dateFrom, dateTo, searchValue);
+    public List<ContactInfoDTO> searchAllOldContactByIdProvince(Integer id_province, String dateFrom, String dateTo, String searchValue) {
+        return contactInfoDTORepository.searchAllOldContactByIdProvince(id_province, dateFrom, dateTo, searchValue);
     }
 
-    public List<Contact> getAllNewContactByDistrictIds(List<Integer> ids) {
-        return contactRepository.getAllNewContactByDistrictIds(ids);
+    public List<ContactInfoDTO> getAllNewContactByDistrictIds(List<Integer> ids) {
+        return contactInfoDTORepository.getAllNewContactByDistrictIds(ids);
     }
 
-    public List<Contact> searchAllNewContact(List<Integer> ids, String dateFrom, String dateTo, String searchValue) {
-        return contactRepository.searchAllNewContact(ids, dateFrom, dateTo, searchValue);
+    public List<ContactInfoDTO> searchAllNewContact(List<Integer> ids, String dateFrom, String dateTo, String searchValue) {
+        return contactInfoDTORepository.searchAllNewContact(ids, dateFrom, dateTo, searchValue);
     }
 
-    public List<Contact> getAllOldContactByDistrictIds(List<Integer> ids) {
-        return contactRepository.getAllOldContactByDistrictIds(ids);
+    public List<ContactInfoDTO> getAllOldContactByDistrictIds(List<Integer> ids) {
+        return contactInfoDTORepository.getAllOldContactByDistrictIds(ids);
     }
 
-    public List<Contact> searchAllOldContact(List<Integer> ids, String dateFrom, String dateTo, String searchValue) {
-        return contactRepository.searchAllOldContact(ids, dateFrom, dateTo, searchValue);
+    public List<ContactInfoDTO> searchAllOldContact(List<Integer> ids, String dateFrom, String dateTo, String searchValue) {
+        return contactInfoDTORepository.searchAllOldContact(ids, dateFrom, dateTo, searchValue);
     }
 
     public Contact addOneContact(Contact contact) {
@@ -91,8 +95,8 @@ public class ContactService {
         return districtRepository.save(district1.get());
     }
 
-    public Optional<District> findDistrictById(Integer id) {
-        return districtRepository.findById(id);
+    public String findDistrictById(Integer id) {
+        return districtRepository.getDistrictNameByIdDistrict(id);
     }
 
 }
