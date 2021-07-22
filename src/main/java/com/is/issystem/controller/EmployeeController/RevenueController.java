@@ -1,5 +1,6 @@
 package com.is.issystem.controller.EmployeeController;
 
+import com.is.issystem.entities.Kpi;
 import com.is.issystem.entities.Revenue;
 import com.is.issystem.service.RevenueService;
 import org.json.JSONObject;
@@ -51,6 +52,11 @@ public class RevenueController {
     @PostMapping(value = "/get_all_kpi_employee")
     public ResponseEntity getAllKpiEmployee(@RequestBody String code_employee){
         return ResponseEntity.status(HttpStatus.OK).body(revenueService.getAllKpiEmployee(code_employee));
+    }
+
+    @PostMapping(value = "/save_one_kpi")
+    public ResponseEntity saveOneRevenue(@RequestBody Kpi kpi){
+        return ResponseEntity.status(HttpStatus.OK).body(revenueService.saveOneKpi(kpi));
     }
 
     //sale executive
