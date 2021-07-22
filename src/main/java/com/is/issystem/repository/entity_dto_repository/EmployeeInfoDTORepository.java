@@ -67,4 +67,42 @@ public interface EmployeeInfoDTORepository extends JpaRepository<EmployeeInfoDTO
             "and (ei.id LIKE ?3 or ei.name LIKE ?3 or ei.phone LIKE ?3 or ei.email LIKE ?3 or de.in_dept LIKE ?3 )\n" +
             "order by id desc",nativeQuery = true)
     List<EmployeeInfoDTO> searchEmployeeInfo(String dateFrom,String dateTo,String searchValue);
+
+    @Query(value = "select ei.*,ea.code,ea.status,de.in_dept,\n" +
+            "            conadd_city , conadd_district,\n" +
+            "            conadd_no_street ,conadd_wards,\n" +
+            "            curadd_city ,curadd_district ,\n" +
+            "            curadd_no_street , curadd_wards,  \n" +
+            "            peradd_city,peradd_district,peradd_no_street,peradd_wards\n" +
+            "       from is_agency_db.employee_acc as ea\n" +
+            "       inner join is_agency_db.group_member as gm on ea.code = gm.code_sale\n" +
+            "       inner join is_agency_db.group as g on gm.id_group = g.id\n" +
+            "       right join is_agency_db.employee_info as ei on ea.id = ei.id_acc\n" +
+            "       left join is_agency_db.current_address as ca on ei.id_current_address = ca.curadd_id\n" +
+            "       left join is_agency_db.contact_address as cad on ei.id_contact_address = cad.conadd_id\n" +
+            "       left join is_agency_db.permanent_address as pa on pa.peradd_id = ei.id_permanent_address\n" +
+            "       left join is_agency_db.department as de on de.id = ei.dept_id \n" +
+            "       where g.code_sale_executive = ?1\n" +
+            "       order by id desc",nativeQuery = true)
+    List<EmployeeInfoDTO> getEmployeeInfoEx(String code_sale_executive);
+
+    @Query(value = "select ei.*,ea.code,ea.status,de.in_dept,\n" +
+            "            conadd_city , conadd_district,\n" +
+            "            conadd_no_street ,conadd_wards,\n" +
+            "            curadd_city ,curadd_district ,\n" +
+            "            curadd_no_street , curadd_wards,  \n" +
+            "            peradd_city,peradd_district,peradd_no_street,peradd_wards\n" +
+            "       from is_agency_db.employee_acc as ea\n" +
+            "       inner join is_agency_db.group_member as gm on ea.code = gm.code_sale\n" +
+            "       inner join is_agency_db.group as g on gm.id_group = g.id\n" +
+            "       right join is_agency_db.employee_info as ei on ea.id = ei.id_acc\n" +
+            "       left join is_agency_db.current_address as ca on ei.id_current_address = ca.curadd_id\n" +
+            "       left join is_agency_db.contact_address as cad on ei.id_contact_address = cad.conadd_id\n" +
+            "       left join is_agency_db.permanent_address as pa on pa.peradd_id = ei.id_permanent_address\n" +
+            "       left join is_agency_db.department as de on de.id = ei.dept_id \n" +
+            "       where g.code_sale_executive = ?1 and (ei.date_of_birth between ?2 and ?3)\n" +
+            "       and (ei.id LIKE ?4 or ei.name LIKE ?4 or ei.phone LIKE ?4 or ei.email LIKE ?4 or ea.code LIKE ?4 )\n" +
+            "       order by id desc",nativeQuery = true)
+    List<EmployeeInfoDTO> searchEmployeeInfoEx(String code_sale_executive, String dateFrom,String dateTo,String searchValue);
+
 }

@@ -25,6 +25,17 @@ public class EmployeeInfoController {
         return employeeInfoService.searchAllEmployee(infoObject.getString("dateFrom"),infoObject.getString("dateTo"),infoObject.getString("searchValue"));
     }
 
+    @PostMapping(value = {"/get_all_employee_info_acc_ex"})
+    public List<EmployeeInfoDTO> getListEmployeeInfoAccEx(@RequestBody String code_sale_executive){
+        return employeeInfoService.getAllEmployeeEx(code_sale_executive);
+    }
+
+    @PostMapping(value = "/search_all_employee_info_acc_ex")
+    public List<EmployeeInfoDTO> searchListEmployeeInfoAccEx(@RequestBody String data){
+        JSONObject infoObject = new JSONObject(data);
+        return employeeInfoService.searchAllEmployeeEx(infoObject.getString("code_sale_executive"), infoObject.getString("dateFrom"),infoObject.getString("dateTo"),infoObject.getString("searchValue"));
+    }
+
     @PostMapping(value = "/add_employee_info")
     public ResponseEntity<?> addEmployeeInfo(@RequestBody EmployeeInfoDTO employeeInfoDTO){
         if(employeeInfoService.addEmployeeInfo(employeeInfoDTO)){

@@ -35,6 +35,14 @@ public class EmployeeInfoService {
         return employeeInfoDTORepository.searchEmployeeInfo(dateFrom,dateTo,searchValue);
     }
 
+    public List<EmployeeInfoDTO> getAllEmployeeEx(String code_sale_executive){
+        return employeeInfoDTORepository.getEmployeeInfoEx(code_sale_executive);
+    }
+
+    public List<EmployeeInfoDTO> searchAllEmployeeEx(String code_sale_executive, String dateFrom,String dateTo,String searchValue){
+        return employeeInfoDTORepository.searchEmployeeInfoEx(code_sale_executive, dateFrom,dateTo,searchValue);
+    }
+
     public EmployeeInfoDTO getDetailEmployeebyID(int id){
         return employeeInfoDTORepository.getDetailEmployeeInfobyID(id);
     }
