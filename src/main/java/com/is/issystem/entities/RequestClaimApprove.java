@@ -25,11 +25,17 @@ public class RequestClaimApprove {
     @Column
     private String description;
     @Column
-    private BigInteger amount;
-    @Column
     private Integer id_contract;
+    @Column
+    private Integer id_request;
     @Column
     private String status;
     @Column
-    private String priority;
+    private String main_benefit;
+    @Column
+    private BigInteger amount_main;
+    @Column
+    private String sub_benefit;
+    @Column
+    private BigInteger amount_sub;
 }

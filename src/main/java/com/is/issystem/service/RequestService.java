@@ -54,10 +54,15 @@ public class RequestService {
         Optional<Request> request = requestRepository.findById(id_request);
         request.get().setStatus(approval_status);
         request.get().setDescription(description);
-        request.get().setStatus(approval_status);
         requestRepository.save(request.get());
     }
 
+    public void setUpdateClaimRequest(Integer id, String description, String approval_status) {
+        Optional<RequestClaimApprove> claimRequest = requestClaimRepository.findById(id);
+        claimRequest.get().setStatus(approval_status);
+        claimRequest.get().setDescription(description);
+        requestClaimRepository.save(claimRequest.get());
+    }
 
     //claim request
     public List<Request> getAllClaimRequestApproval(String code_appraiser) {
@@ -104,6 +109,23 @@ public class RequestService {
 
     public List<Notification> getAllNotificationByIdCustomer(Integer id_customer) {
         return notificationRepository.getAllNotificationByIdCustomer(id_customer);
+    }
+
+    //manager
+    public List<RequestClaimApprove> getAllCheckManagerReq() {
+        return requestClaimRepository.getAllCheckManagerReq();
+    }
+
+    public List<RequestClaimApprove> searchAllCheckManagerReq(String dateFrom, String dateTo, String searchValue) {
+        return requestClaimRepository.searchAllCheckManagerReq(dateFrom, dateTo, searchValue);
+    }
+
+    public List<RequestClaimApprove> getAllUncheckManagerReq() {
+        return requestClaimRepository.getAllUncheckManagerReq();
+    }
+
+    public List<RequestClaimApprove> searchAllUncheckManagerReq(String dateFrom, String dateTo, String searchValue) {
+        return requestClaimRepository.searchAllUncheckManagerReq(dateFrom, dateTo, searchValue);
     }
 
 }

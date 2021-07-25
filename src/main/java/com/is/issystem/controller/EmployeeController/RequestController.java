@@ -102,4 +102,33 @@ public class RequestController {
         return ResponseEntity.status(HttpStatus.OK).body(requestService.addOneNotification(notification));
     }
 
+    //manager
+    @PostMapping(value = "/get_all_check_manager_req")
+    List<RequestClaimApprove> getAllCheckManagerReq(@RequestBody String code_appraiser){
+        return requestService.getAllCheckManagerReq();
+    }
+    @PostMapping(value = "/search_all_check_manager_req")
+    List<RequestClaimApprove> searchAllCheckManagerReq(@RequestBody String data){
+        JSONObject requestObject = new JSONObject(data);
+        return requestService.searchAllCheckManagerReq(requestObject.getString("dateFrom"),requestObject.getString("dateTo"),requestObject.getString("searchValue"));
+    }
+
+    @PostMapping(value = "/get_all_uncheck_manager_req")
+    List<RequestClaimApprove> getAllUncheckManagerReq(@RequestBody String code_appraiser){
+        return requestService.getAllUncheckManagerReq();
+    }
+
+    @PostMapping(value = "/search_all_uncheck_manager_req")
+    List<RequestClaimApprove> searchAllUncheckManagerReq(@RequestBody String data){
+        JSONObject requestObject = new JSONObject(data);
+        return requestService.searchAllUncheckManagerReq(requestObject.getString("dateFrom"),requestObject.getString("dateTo"),requestObject.getString("searchValue"));
+    }
+
+    @PostMapping(value = "/set_status_claim_request")
+    public ResponseEntity<?> setStatusClaimRequest(@RequestBody String data1){
+        JSONObject data = new JSONObject(data1);
+        requestService.setUpdateClaimRequest(Integer.parseInt(data.get("id").toString()),data.get("description").toString(),data.get("approval_status").toString());
+        return ResponseEntity.status(HttpStatus.OK).body(data1);
+    }
+
 }

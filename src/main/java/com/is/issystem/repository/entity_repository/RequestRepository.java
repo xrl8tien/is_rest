@@ -68,6 +68,7 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
             " order by id desc ", nativeQuery = true)
     public List<Request> searchAllApprovedClaimReq(String dateFrom, String dateTo, String searchValue);
 
+    //customer
     @Query(value = "select * from is_agency_db.request where code_sender = ?1 and id_type = 2 order by id desc  ", nativeQuery = true)
     public List<Request> getAllCustomerClaimReq(String code);
 
@@ -77,5 +78,7 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
             " and (id_contract LIKE ?4 or code_sender LIKE ?4)\n" +
             " order by id desc ", nativeQuery = true)
     public List<Request> searchAllCustomerClaimReq(String code, String dateFrom, String dateTo, String searchValue);
+
+    //manager
 
 }
