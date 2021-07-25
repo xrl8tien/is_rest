@@ -16,7 +16,7 @@ public interface RequestClaimRepository extends JpaRepository<RequestClaimApprov
     @Query(value = "select * \n" +
             " from is_agency_db.request_claim_approve \n" +
             " where (status = 'DX' and date between ?1 and ?2)\n" +
-            " and (id_contract LIKE ?3 or code_sender LIKE ?3 or name LIKE ?3 or main_benefit LIKE ?3 or sub_benefit LIKE ?3)\n" +
+            " and (id_contract LIKE ?3 or code_sender LIKE ?3 or name LIKE ?3 or description LIKE ?3)\n" +
             " order by id desc ", nativeQuery = true)
     public List<RequestClaimApprove> searchAllUncheckManagerReq(String dateFrom, String dateTo, String searchValue);
 
@@ -27,8 +27,19 @@ public interface RequestClaimRepository extends JpaRepository<RequestClaimApprov
     @Query(value = "select * \n" +
             " from is_agency_db.request_claim_approve \n" +
             " where (not status = 'DX' and date between ?1 and ?2)\n" +
-            " and (id_contract LIKE ?3 or code_sender LIKE ?3 or name LIKE ?3 or main_benefit LIKE ?3 or sub_benefit LIKE ?3)\n" +
+            " and (id_contract LIKE ?3 or code_sender LIKE ?3 or name LIKE ?3 or description LIKE ?3)\n" +
             " order by id desc ", nativeQuery = true)
     public List<RequestClaimApprove> searchAllCheckManagerReq(String dateFrom, String dateTo, String searchValue);
+
+    //
+    @Query(value = "select * from is_agency_db.request_claim_approve where status = 'DD' order by id desc ", nativeQuery = true)
+    public List<RequestClaimApprove> getAllApprovalManagerReq();
+
+    @Query(value = "select * \n" +
+            " from is_agency_db.request_claim_approve \n" +
+            " where (status = 'DD' and date between ?1 and ?2)\n" +
+            " and (id_contract LIKE ?3 or code_sender LIKE ?3 or name LIKE ?3 or description LIKE ?3)\n" +
+            " order by id desc ", nativeQuery = true)
+    public List<RequestClaimApprove> searchAllApprovalManagerReq(String dateFrom, String dateTo, String searchValue);
 
 }

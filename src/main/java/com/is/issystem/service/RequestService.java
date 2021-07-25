@@ -120,12 +120,24 @@ public class RequestService {
         return requestClaimRepository.searchAllCheckManagerReq(dateFrom, dateTo, searchValue);
     }
 
+    public List<RequestClaimApprove> getAllApprovalManagerReq() {
+        return requestClaimRepository.getAllApprovalManagerReq();
+    }
+
+    public List<RequestClaimApprove> searchAllApprovalManagerReq(String dateFrom, String dateTo, String searchValue) {
+        return requestClaimRepository.searchAllApprovalManagerReq(dateFrom, dateTo, searchValue);
+    }
+
     public List<RequestClaimApprove> getAllUncheckManagerReq() {
         return requestClaimRepository.getAllUncheckManagerReq();
     }
 
     public List<RequestClaimApprove> searchAllUncheckManagerReq(String dateFrom, String dateTo, String searchValue) {
         return requestClaimRepository.searchAllUncheckManagerReq(dateFrom, dateTo, searchValue);
+    }
+
+    public Optional<RequestClaimApprove> getDetailClaimRequest(int id) {
+        return requestClaimRepository.findById(id);
     }
 
 }

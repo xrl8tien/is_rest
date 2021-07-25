@@ -113,6 +113,16 @@ public class RequestController {
         return requestService.searchAllCheckManagerReq(requestObject.getString("dateFrom"),requestObject.getString("dateTo"),requestObject.getString("searchValue"));
     }
 
+    @PostMapping(value = "/get_all_approval_manager_req")
+    List<RequestClaimApprove> getAllApprovalManagerReq(@RequestBody String code_appraiser){
+        return requestService.getAllApprovalManagerReq();
+    }
+    @PostMapping(value = "/search_all_approval_manager_req")
+    List<RequestClaimApprove> searchAllApprovalManagerReq(@RequestBody String data){
+        JSONObject requestObject = new JSONObject(data);
+        return requestService.searchAllApprovalManagerReq(requestObject.getString("dateFrom"),requestObject.getString("dateTo"),requestObject.getString("searchValue"));
+    }
+
     @PostMapping(value = "/get_all_uncheck_manager_req")
     List<RequestClaimApprove> getAllUncheckManagerReq(@RequestBody String code_appraiser){
         return requestService.getAllUncheckManagerReq();
@@ -129,6 +139,12 @@ public class RequestController {
         JSONObject data = new JSONObject(data1);
         requestService.setUpdateClaimRequest(Integer.parseInt(data.get("id").toString()),data.get("description").toString(),data.get("approval_status").toString());
         return ResponseEntity.status(HttpStatus.OK).body(data1);
+    }
+
+    @PostMapping(value = "/get_detail_claim_request")
+    public ResponseEntity<?> getDetailClaimRequest(@RequestBody Integer id)
+    {
+        return ResponseEntity.status(HttpStatus.OK).body(requestService.getDetailClaimRequest(id));
     }
 
 }
