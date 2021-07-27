@@ -187,4 +187,9 @@ public class CustomerInfoController {
         return ResponseEntity.status(HttpStatus.OK).body(customerInfoService.getAllCodeSaleByCodeEx(code_ex));
     }
 
+    @PostMapping(value = "/get_all_code_sale")
+    public ResponseEntity<?> getAllCodeSale(@RequestBody String code_manager) {
+        return ResponseEntity.status(HttpStatus.OK).body(customerInfoService.getAllCodeSale());
+    }
+
 }

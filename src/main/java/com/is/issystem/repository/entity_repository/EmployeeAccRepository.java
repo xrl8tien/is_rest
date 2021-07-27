@@ -31,5 +31,9 @@ public interface EmployeeAccRepository extends JpaRepository<EmployeeAcc,Integer
             "WHERE id_role = ?1 ;",nativeQuery = true)
     public List<EmployeeAcc> getAllEmaccByIdRole(Integer id_role);
 
+    @Query(value = "SELECT code\n" +
+            "FROM is_agency_db.employee_acc\n" +
+            "WHERE id_role in (2, 5) and status = 1",nativeQuery = true)
+    public List<String> getAllCodeSale();
 
 }

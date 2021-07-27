@@ -1,8 +1,10 @@
 package com.is.issystem.service;
 
 import com.is.issystem.dto.EmployeeInfoDTO;
+import com.is.issystem.dto.GroupDTO;
 import com.is.issystem.entities.*;
 import com.is.issystem.repository.entity_dto_repository.EmployeeInfoDTORepository;
+import com.is.issystem.repository.entity_dto_repository.GroupDTORepository;
 import com.is.issystem.repository.entity_repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,8 @@ public class EmployeeInfoService {
     ContactAddressRepository contactAddressRepository;
     @Autowired
     CurrentAddressRepository currentAddressRepository;
+    @Autowired
+    GroupDTORepository groupDTORepository;
 
     public List<EmployeeInfoDTO> getAllEmployee(){
         return employeeInfoDTORepository.getEmployeeInfo();
@@ -37,6 +41,14 @@ public class EmployeeInfoService {
 
     public List<EmployeeInfoDTO> getAllEmployeeEx(String code_sale_executive){
         return employeeInfoDTORepository.getEmployeeInfoEx(code_sale_executive);
+    }
+
+    public List<GroupDTO> getAllGroup(){
+        return groupDTORepository.getAllGroup();
+    }
+
+    public List<GroupDTO> searchAllGroup(String searchValue){
+        return groupDTORepository.searchAllGroup(searchValue);
     }
 
     public List<EmployeeInfoDTO> searchAllEmployeeEx(String code_sale_executive, String dateFrom,String dateTo,String searchValue){

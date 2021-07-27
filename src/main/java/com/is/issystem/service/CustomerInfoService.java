@@ -42,6 +42,8 @@ public class CustomerInfoService {
     @Autowired
     GroupMemberRepository groupMemberRepository;
 
+    @Autowired
+    EmployeeAccRepository employeeAccRepository;
 
     public Boolean updateCustomerInfo(CustomerDTO customerDTO){
 
@@ -270,5 +272,8 @@ public class CustomerInfoService {
         return groupMemberRepository.getAllCodeSaleByCodeEx(code_ex);
     }
 
+    public List<String> getAllCodeSale(){
+        return employeeAccRepository.getAllCodeSale();
+    }
 
 }

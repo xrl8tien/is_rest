@@ -1,5 +1,6 @@
 package com.is.issystem.controller.EmployeeController;
 import com.is.issystem.dto.EmployeeInfoDTO;
+import com.is.issystem.dto.GroupDTO;
 import com.is.issystem.service.EmployeeInfoService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,16 @@ public class EmployeeInfoController {
     @PostMapping(value = {"/get_all_employee_info_acc_ex"})
     public List<EmployeeInfoDTO> getListEmployeeInfoAccEx(@RequestBody String code_sale_executive){
         return employeeInfoService.getAllEmployeeEx(code_sale_executive);
+    }
+
+    @PostMapping(value = {"/get_all_group"})
+    public List<GroupDTO> getAllGroup(@RequestBody String code_sale_executive){
+        return employeeInfoService.getAllGroup();
+    }
+
+    @PostMapping(value = {"/search_all_group"})
+    public List<GroupDTO> searchAllGroup(@RequestBody String searchValue){
+        return employeeInfoService.searchAllGroup(searchValue);
     }
 
     @PostMapping(value = "/search_all_employee_info_acc_ex")
