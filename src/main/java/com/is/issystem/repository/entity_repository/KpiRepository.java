@@ -10,7 +10,7 @@ public interface KpiRepository extends JpaRepository<Kpi, Integer> {
     @Query(nativeQuery = true, value = "SELECT *\n" +
             "FROM (SELECT *\n" +
             "          , ROW_NUMBER() OVER (PARTITION BY YEAR(create_time), Month(create_time) " +
-            "            ORDER BY create_time DESC) 'RowRank'\n" +
+            "            ORDER BY id DESC) 'RowRank'\n" +
             "            FROM is_agency_db.kpi WHERE code_employee = ?1 \n" +
             "     )sub\n" +
             "WHERE RowRank = 1")

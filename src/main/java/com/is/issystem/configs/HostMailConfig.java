@@ -25,8 +25,9 @@ public class HostMailConfig {
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
         mailSender.setDefaultEncoding("UTF-8");
-        mailSender.setUsername("saler@isolution.asia");
-        mailSender.setPassword("daohieu571999");
+
+        mailSender.setUsername("saler.isolution@gmail.com");
+        mailSender.setPassword("hoilamgi79");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
