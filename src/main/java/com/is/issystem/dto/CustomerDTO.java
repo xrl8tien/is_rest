@@ -90,7 +90,7 @@ import java.util.Date;
                         "INNER JOIN permanent_address as peradd on peradd.peradd_id = ci.id_permanent_address \n" +
                         "INNER JOIN workplace_address as workadd ON workadd.workadd_id = ci.id_workplace_address \n" +
                         "where (ci.code_em_support in ?1 and created_time between ?2 and ?3)\n" +
-                        "and (ci.full_name LIKE ?4 or ci.id LIKE ?4  or code LIKE ?4 or conadd_city LIKE ?4 or ci.phone_1 LIKE ?4\n" +
+                        "and (ci.full_name LIKE ?4 or ci.id LIKE ?4 or conadd_city LIKE ?4 or ci.phone_1 LIKE ?4\n" +
                         "or workadd_no_street LIKE ?4)\n" +
                         "order by created_time desc",
         resultSetMapping = "stock_akhir_dto"

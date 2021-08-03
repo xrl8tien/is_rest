@@ -1,13 +1,16 @@
 package com.is.issystem.service;
 
 import com.is.issystem.dto.ContactInfoDTO;
+import com.is.issystem.dto.DistrictDTO;
 import com.is.issystem.entities.Contact;
 import com.is.issystem.entities.District;
 import com.is.issystem.entities.Province;
+import com.is.issystem.entities.SaleDistrict;
 import com.is.issystem.repository.entity_dto_repository.ContactInfoDTORepository;
 import com.is.issystem.repository.entity_repository.ContactRepository;
 import com.is.issystem.repository.entity_repository.DistrictRepository;
 import com.is.issystem.repository.entity_repository.ProvinceRepository;
+import com.is.issystem.repository.entity_repository.SaleDistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,8 @@ public class ContactService {
     ContactRepository contactRepository;
     @Autowired
     ContactInfoDTORepository contactInfoDTORepository;
+    @Autowired
+    SaleDistrictRepository saleDistrictRepository;
 
     public List<Province> getAllProvince() {
         return provinceRepository.findAll();
@@ -89,10 +94,20 @@ public class ContactService {
         return contactRepository.save(contact.get());
     }
 
-    public District updateDistrict(District district) {
-        Optional<District> district1 = districtRepository.findById(district.getId());
-        district1.get().setCode_sale(district.getCode_sale());
-        return districtRepository.save(district1.get());
+    public String deleteAllSaleDistrict(String code_sale){
+        saleDistrictRepository.deleteAll();
+        return code_sale;
+    }
+
+
+    public DistrictDTO updateSaleDistrict(DistrictDTO districtDTO) {
+        districtDTO.getCodes_sale().forEach(s -> {
+            SaleDistrict saleDistrict = new SaleDistrict();
+            saleDistrict.setId_district(districtDTO.getId());
+            saleDistrict.setCode_sale(s);
+            saleDistrictRepository.save(saleDistrict);
+        });
+        return districtDTO;
     }
 
     public String findDistrictById(Integer id) {

@@ -1,10 +1,7 @@
 package com.is.issystem.controller.EmployeeController;
 
 import com.is.issystem.commons.Ultility;
-import com.is.issystem.dto.ContactDTO;
-import com.is.issystem.dto.ContactInfoDTO;
-import com.is.issystem.dto.CustomerDTO;
-import com.is.issystem.dto.CustomerInfoDTO;
+import com.is.issystem.dto.*;
 import com.is.issystem.entities.Contact;
 import com.is.issystem.entities.Contract;
 import com.is.issystem.entities.District;
@@ -172,9 +169,14 @@ public class CustomerInfoController {
         return ResponseEntity.status(HttpStatus.OK).body(contactService.updateContact(infoObject.getString("code_sale"), infoObject.getString("status"), Integer.parseInt(infoObject.get("id").toString())));
     }
 
-    @PostMapping(value = "/update_district")
-    public ResponseEntity<?> updateContact(@RequestBody District district) {
-        return ResponseEntity.status(HttpStatus.OK).body(contactService.updateDistrict(district));
+    @PostMapping(value = "/update_sale_district")
+    public ResponseEntity<?> updateSaleDistrict(@RequestBody DistrictDTO districtDTO) {
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.updateSaleDistrict(districtDTO));
+    }
+
+    @PostMapping(value = "/delete_all_sale_district")
+    public ResponseEntity<?> deleteAllSaleDistrict(@RequestBody String code_sale) {
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.deleteAllSaleDistrict(code_sale));
     }
 
     @PostMapping(value = "/find_district_by_id")
@@ -190,6 +192,11 @@ public class CustomerInfoController {
     @PostMapping(value = "/get_all_code_sale")
     public ResponseEntity<?> getAllCodeSale(@RequestBody String code_manager) {
         return ResponseEntity.status(HttpStatus.OK).body(customerInfoService.getAllCodeSale());
+    }
+
+    @PostMapping(value = "/get_all_code_sale_by_district_id")
+    public ResponseEntity<?> getAllCodeSaleByDistrictId(@RequestBody Integer id_district) {
+        return ResponseEntity.status(HttpStatus.OK).body(customerInfoService.getAllCodeSaleByDistrictId(id_district));
     }
 
 }

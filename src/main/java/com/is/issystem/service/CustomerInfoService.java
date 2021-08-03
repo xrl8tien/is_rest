@@ -45,6 +45,9 @@ public class CustomerInfoService {
     @Autowired
     EmployeeAccRepository employeeAccRepository;
 
+    @Autowired
+    SaleDistrictRepository saleDistrictRepository;
+
     public Boolean updateCustomerInfo(CustomerDTO customerDTO){
 
         if(customerInfoRepository.checkDuplicateEmail(customerDTO.getId(),customerDTO.getEmail()).size() != 0){
@@ -274,6 +277,10 @@ public class CustomerInfoService {
 
     public List<String> getAllCodeSale(){
         return employeeAccRepository.getAllCodeSale();
+    }
+
+    public List<String> getAllCodeSaleByDistrictId(Integer id_district){
+        return saleDistrictRepository.getAllCodeSaleByDistrictId(id_district);
     }
 
 }
