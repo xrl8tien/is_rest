@@ -2,6 +2,7 @@ package com.is.issystem.controller.EmployeeController;
 
 import com.is.issystem.dto.ContractDTO;
 import com.is.issystem.dto.CustomerInfoDTO;
+import com.is.issystem.dto.ProductDTO;
 import com.is.issystem.entities.Contract;
 import com.is.issystem.entities.ContractChangeHistory;
 import com.is.issystem.entities.FeePaymentHistory;
@@ -101,6 +102,11 @@ public class ContractController {
     @PostMapping(value = "/search_all_contract_of_employee_ex")
     List<ContractDTO> searchAllContractEx(@RequestBody CustomerInfoDTO data){
         return contractService.searchAllContractEx(data.getCodes_saler(), data.getDateFrom(), data.getDateTo(), data.getSearchValue());
+    }
+
+    @PostMapping(value = "/get_all_product_dto")
+    List<ProductDTO> getAllProductDTO(@RequestBody String code_em_support){
+        return contractService.getAllProductDTO();
     }
 
 }

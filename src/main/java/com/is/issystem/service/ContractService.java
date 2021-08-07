@@ -1,8 +1,10 @@
 package com.is.issystem.service;
 
 import com.is.issystem.dto.ContractDTO;
+import com.is.issystem.dto.ProductDTO;
 import com.is.issystem.entities.*;
 import com.is.issystem.repository.entity_dto_repository.ContractDTORepository;
+import com.is.issystem.repository.entity_dto_repository.ProductDTORepository;
 import com.is.issystem.repository.entity_repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,8 @@ public class ContractService {
     private BenifitPaymentHistoryRepository benifitPaymentHistoryRepository;
     @Autowired
     private RequestRepository requestRepository;
+    @Autowired
+    private ProductDTORepository productDTORepository;
 
     public List<ContractDTO> getAllContract(String code_em_support){
         return contractDTORepository.getAllContractDTO(code_em_support);
@@ -136,5 +140,9 @@ public class ContractService {
         oldContract.get().setInsurance_type(cont.getInsurance_type());
         oldContract.get().setId_main_benifit(cont.getId_illustration());
 
+    }
+
+    public List<ProductDTO> getAllProductDTO(){
+        return productDTORepository.getAllProductDTO();
     }
 }
