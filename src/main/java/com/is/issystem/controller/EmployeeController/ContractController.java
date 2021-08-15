@@ -3,10 +3,7 @@ package com.is.issystem.controller.EmployeeController;
 import com.is.issystem.dto.ContractDTO;
 import com.is.issystem.dto.CustomerInfoDTO;
 import com.is.issystem.dto.ProductDTO;
-import com.is.issystem.entities.Contract;
-import com.is.issystem.entities.ContractChangeHistory;
-import com.is.issystem.entities.FeePaymentHistory;
-import com.is.issystem.entities.BenifitPaymentHistory;
+import com.is.issystem.entities.*;
 import com.is.issystem.repository.entity_repository.ContractRepository;
 import com.is.issystem.service.ContractService;
 import org.json.JSONObject;
@@ -107,6 +104,18 @@ public class ContractController {
     @PostMapping(value = "/get_all_product_dto")
     List<ProductDTO> getAllProductDTO(@RequestBody String code_em_support){
         return contractService.getAllProductDTO();
+    }
+
+    //notification setting
+    @PostMapping(value = "/update_notification_setting")
+    public ResponseEntity<?> updateNotificationSetting(@RequestBody NotificationSetting notificationSetting){
+        contractService.updateNotificationSetting(notificationSetting);
+        return ResponseEntity.status(HttpStatus.OK).body(notificationSetting);
+    }
+
+    @PostMapping(value = "/get_notification_setting")
+    NotificationSetting getNotificationSetting(@RequestBody String code_sale){
+        return contractService.getNotificationSetting(code_sale);
     }
 
 }

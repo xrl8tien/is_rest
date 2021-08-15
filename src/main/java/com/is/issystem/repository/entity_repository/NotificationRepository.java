@@ -12,4 +12,9 @@ public interface NotificationRepository extends JpaRepository<Notification, Inte
 
     @Query(value = "select * from is_agency_db.notification where id_customer = ?1 order by id desc  ", nativeQuery = true)
     List<Notification> getAllNotificationByIdCustomer(Integer id_customer);
+
+    @Query(value = "SELECT * FROM is_agency_db.notification " +
+                   "WHERE (date> now() -  interval 30 day) AND id_customer = ?1 AND description LIKE ?2", nativeQuery = true)
+    List<Notification> checkNotification(Integer id_customer, String description);
+
 }

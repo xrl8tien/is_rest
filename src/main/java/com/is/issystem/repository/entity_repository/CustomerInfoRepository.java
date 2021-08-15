@@ -21,4 +21,9 @@ public interface CustomerInfoRepository extends JpaRepository<CustomerInfo,Integ
 
     @Query (nativeQuery = true, value = "select * from customer_info where id != ? and email = ? ")
     List<CustomerInfo> checkDuplicateEmail(Long id_infor, String email);
+
+    @Query (nativeQuery = true, value = "SELECT *\n" +
+                                        "FROM is_agency_db.customer_info\n" +
+                                        "WHERE MONTH(birth_date) = MONTH(NOW()) AND DAY(birth_date) = DAY(NOW());")
+    List<CustomerInfo> getAllBirthday();
 }
