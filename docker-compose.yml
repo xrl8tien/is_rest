@@ -2,11 +2,11 @@ version: '3.3'
 
 services:
     web:
-        image: is_rest:latest
+        image: xrl8tien/is_rest:latest
         networks:
           - web
     frontend:
-        image: is_ui:latest
+        image: xrl8tien/is_ui:latest
         ports:
           - "80:80"
         networks:
