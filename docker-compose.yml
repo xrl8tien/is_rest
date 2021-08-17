@@ -6,7 +6,7 @@ services:
         networks:
           - web
     frontend:
-        image: angular_ui_docker:latest
+        image: is_ui:latest
         ports:
           - "80:80"
         networks:
