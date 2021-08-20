@@ -6,6 +6,7 @@ import com.is.issystem.dto.ProductDTO;
 import com.is.issystem.entities.*;
 import com.is.issystem.repository.entity_repository.ContractRepository;
 import com.is.issystem.service.ContractService;
+import com.is.issystem.service.CustomerAccService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ public class ContractController {
     private ContractService contractService;
     @Autowired
     private ContractRepository contractRepository;
+    @Autowired
+    private CustomerAccService customerAccService;
 
     @PostMapping(value = "/get_all_contract_of_employee")
     List<ContractDTO> getAllContract(@RequestBody String code_em_support){
@@ -116,6 +119,12 @@ public class ContractController {
     @PostMapping(value = "/get_notification_setting")
     NotificationSetting getNotificationSetting(@RequestBody String code_sale){
         return contractService.getNotificationSetting(code_sale);
+    }
+
+    //email
+    @PostMapping(value = "/send_notification_email")
+    Contract sendNotificationEmail(@RequestBody Contract contract){
+        return customerAccService.notificationEmail(contract);
     }
 
 }

@@ -2,7 +2,9 @@ package com.is.issystem.service;
 
 
 import com.is.issystem.commons.Ultility;
+import com.is.issystem.dto.ContractDTO;
 import com.is.issystem.dto.CustomerDTO;
+import com.is.issystem.entities.Contract;
 import com.is.issystem.entities.CustomerAcc;
 import com.is.issystem.repository.entity_repository.CustomerAccRepository;
 import io.jsonwebtoken.Jwts;
@@ -14,6 +16,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -80,6 +83,32 @@ public class CustomerAccService {
             e.printStackTrace();
         }
         return customerAcc1;
+    }
+
+    public Contract notificationEmail(Contract contract){
+        List<CustomerDTO> customerInfo = customerInfoService.getOneInfo(contract.getId_customer());
+        LocalDate dateTo;
+        LocalDate startTime = contract.getStart_time().toLocalDate();
+        if (contract.getPayment_period_id() == 1) {
+            dateTo = startTime.plusYears(1);
+        } else if (contract.getPayment_period_id() == 2) {
+            dateTo = startTime.plusMonths(6);
+        } else if (contract.getPayment_period_id() == 3) {
+            dateTo = startTime.plusMonths(3);
+        } else {
+            dateTo = startTime.plusMonths(1);
+        }
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(customerInfo.get(0).getEmail());
+        message.setSubject("THÔNG BÁO SẮP ĐẾN HẠN ĐÓNG PHÍ BẢO HIỂM");
+        message.setText("HỢP ĐỒNG: #HD" + contract.getId() + "-" + contract.getInsurance_type() + " của Quý Khách: " + customerInfo.get(0).getFull_name() + " sắp đén hạn thanh toán.\n" +
+                "Quý Khách vui lòng thanh toán trước ngày" + dateTo + " ! ");
+        try{
+            this.emailSender.send(message);
+        } catch (MailException e){
+            e.printStackTrace();
+        }
+        return contract;
     }
 
     public CustomerAcc updateCustomerAccount(CustomerAcc customerAcc){

@@ -41,6 +41,8 @@ public class ContractService {
     private CustomerInfoRepository customerInfoRepository;
     @Autowired
     private NotificationSettingRepository notificationSettingRepository;
+    @Autowired
+    private CustomerAccService customerAccService;
 
     public List<ContractDTO> getAllContract(String code_em_support) {
         return contractDTORepository.getAllContractDTO(code_em_support);
@@ -171,19 +173,21 @@ public class ContractService {
     //hẹn 1 giờ sáng chạy hàm này
     @Scheduled(cron = "0 0 1 * * *")
     public void autoSendNotification() {
-        List<ContractDTO> listContracts = contractDTORepository.getAllContractApproved();
+        List<Contract> listContracts = contractRepository.getAllContractApproved();
         List<CustomerInfo> listCustomerInfos = customerInfoRepository.getAllBirthday();
-        listContracts.forEach(contractDTO -> {
-            NotificationSetting notificationSetting = notificationSettingRepository.getNotificationSettingByCode(contractDTO.getCode_em_support());
+        listContracts.forEach(contract -> {
+            NotificationSetting notificationSetting = notificationSettingRepository.getNotificationSettingByCode(contract.getCode_em_support());
             if (notificationSetting == null) {
-                if (calculateDate(contractDTO.getStart_time(), contractDTO.getPayment_period_id()) <= 30
-                        && calculateDate(contractDTO.getStart_time(), contractDTO.getPayment_period_id()) >= 0) {
-                    sendNotification(contractDTO);
+                if (calculateDate(contract.getStart_time(), contract.getPayment_period_id()) <= 30
+                        && calculateDate(contract.getStart_time(), contract.getPayment_period_id()) >= 0) {
+                    sendNotification(contract);
+                    customerAccService.notificationEmail(contract);
                 }
             } else {
-                if (calculateDate(contractDTO.getStart_time(), contractDTO.getPayment_period_id()) <= notificationSetting.getDate_setting()
-                        && calculateDate(contractDTO.getStart_time(), contractDTO.getPayment_period_id()) >= 0) {
-                    sendNotification(contractDTO);
+                if (calculateDate(contract.getStart_time(), contract.getPayment_period_id()) <= notificationSetting.getDate_setting()
+                        && calculateDate(contract.getStart_time(), contract.getPayment_period_id()) >= 0) {
+                    sendNotification(contract);
+                    customerAccService.notificationEmail(contract);
                 }
             }
         });
@@ -200,14 +204,14 @@ public class ContractService {
         });
     }
 
-    private void sendNotification(ContractDTO contractDTO) {
-        List<Notification> listNotifications = notificationRepository.checkNotification(contractDTO.getId_customer(), "%" + contractDTO.getId() + "%");
+    private void sendNotification(Contract contract) {
+        List<Notification> listNotifications = notificationRepository.checkNotification(contract.getId_customer(), "%" + contract.getId() + "%");
         if (listNotifications == null || listNotifications.isEmpty()) {
             Notification notification = new Notification();
-            notification.setId_customer(contractDTO.getId_customer());
+            notification.setId_customer(contract.getId_customer());
             notification.setId(0);
             notification.setTitle("Nhắc nhở đóng tiền hợp đồng");
-            notification.setDescription("Hợp đồng #HD" + contractDTO.getId() + "-" + contractDTO.getInsurance_type() + " của quý khách sắp đến hạn nộp tiền. Quý khách vui lòng đóng tiền đúng hạn theo hợp đồng!");
+            notification.setDescription("Hợp đồng #HD" + contract.getId() + "-" + contract.getInsurance_type() + " của quý khách sắp đến hạn nộp tiền. Quý khách vui lòng đóng tiền đúng hạn theo hợp đồng!");
             notification.setUrl("contract-customerweb");
             notification.setType(2);
             notification.setDate(new java.util.Date());

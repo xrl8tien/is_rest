@@ -15,6 +15,11 @@ public interface ContractRepository extends JpaRepository<Contract,Integer> {
     @Query(value = "SELECT * from is_agency_db.contract as ct where ct.id = ?1",nativeQuery = true)
     Contract getDetailContract(int id);
 
+
+    @Query(nativeQuery = true,value = "SELECT * FROM is_agency_db.contract where approval_status = 'DD' order by id desc")
+    public List<Contract> getAllContractApproved();
+
+
     @Modifying
     @Query(value = "UPDATE is_agency_db.contract\n" +
             "SET\n" +
