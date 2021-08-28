@@ -1,7 +1,5 @@
 package com.is.issystem.controller.EmployeeController;
-import com.is.issystem.entities.Notification;
-import com.is.issystem.entities.Request;
-import com.is.issystem.entities.RequestClaimApprove;
+import com.is.issystem.entities.*;
 import com.is.issystem.service.RequestService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +47,26 @@ public class RequestController {
     @PostMapping(value = "/add_one_request")
     public ResponseEntity<?> addOneRequest(@RequestBody Request request){
         return ResponseEntity.status(HttpStatus.OK).body(requestService.addOneReq(request));
+    }
+
+    @PostMapping(value = "/add_one_request_claim_detail")
+    public ResponseEntity<?> addOneRequestClaimDetail(@RequestBody RequestClaimDetail requestClaimDetail) {
+        return ResponseEntity.status(HttpStatus.OK).body(requestService.addOneRequestClaimDetail(requestClaimDetail));
+    }
+
+    @PostMapping(value = "/add_one_request_medical_information")
+    public ResponseEntity<?> addOneRequestMedicalInformation(@RequestBody RequestMedicalInformation requestMedicalInformation) {
+        return ResponseEntity.status(HttpStatus.OK).body(requestService.addOneRequestMedicalInformation(requestMedicalInformation));
+    }
+
+    @PostMapping(value = "/get_request_claim_detail")
+    public ResponseEntity<?> getRequestClaimDetail(@RequestBody Integer id_request) {
+        return ResponseEntity.status(HttpStatus.OK).body(requestService.getRequestClaimDetail(id_request));
+    }
+
+    @PostMapping(value = "/get_request_medical_information")
+    public ResponseEntity<?> getRequestMedicalInformation(@RequestBody Integer id_request_claim_detail) {
+        return ResponseEntity.status(HttpStatus.OK).body(requestService.getRequestMedicalInformation(id_request_claim_detail));
     }
 
     @PostMapping(value = "/add_claim_request")

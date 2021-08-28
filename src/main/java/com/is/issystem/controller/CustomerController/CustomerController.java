@@ -148,6 +148,16 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(requestService.addOneReq(request));
     }
 
+    @PostMapping(value = "/add_one_request_claim_detail")
+    public ResponseEntity<?> addOneRequestClaimDetail(@RequestBody RequestClaimDetail requestClaimDetail) {
+        return ResponseEntity.status(HttpStatus.OK).body(requestService.addOneRequestClaimDetail(requestClaimDetail));
+    }
+
+    @PostMapping(value = "/add_one_request_medical_information")
+    public ResponseEntity<?> addOneRequestMedicalInformation(@RequestBody RequestMedicalInformation requestMedicalInformation) {
+        return ResponseEntity.status(HttpStatus.OK).body(requestService.addOneRequestMedicalInformation(requestMedicalInformation));
+    }
+
     @PostMapping(value = "/upload_customer_file_request")
     public ResponseEntity uploadFileRequest(@RequestParam("fileData") MultipartFile[] fileData) throws IOException {
         return ResponseEntity.status(HttpStatus.OK).body(attachmentService.uploadRequestAttachmentToGCP(fileData, storage));

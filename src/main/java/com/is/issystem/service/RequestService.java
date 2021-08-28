@@ -1,9 +1,7 @@
 package com.is.issystem.service;
 
 import com.is.issystem.entities.*;
-import com.is.issystem.repository.entity_repository.NotificationRepository;
-import com.is.issystem.repository.entity_repository.RequestClaimRepository;
-import com.is.issystem.repository.entity_repository.RequestRepository;
+import com.is.issystem.repository.entity_repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +17,10 @@ public class RequestService {
     private RequestClaimRepository requestClaimRepository;
     @Autowired
     private NotificationRepository notificationRepository;
-
-
+    @Autowired
+    private RequestClaimDetailRepository requestClaimDetailRepository;
+    @Autowired
+    private RequestMedicalInformationRepository requestMedicalInformationRepository;
 
     //contract request
     public List<Request> getAllContractRequestApproval(String code_appraiser) {
@@ -48,6 +48,24 @@ public class RequestService {
         Request req = requestRepository.save(request);
         requestRepository.flush();
         return req;
+    }
+
+    public RequestClaimDetail getRequestClaimDetail(Integer id_request) {
+        return requestClaimDetailRepository.getRequestClaimDetailById_request(id_request);
+    }
+
+    public RequestMedicalInformation getRequestMedicalInformation(Integer id_request_claim_detail) {
+        return requestMedicalInformationRepository.getRequestMedicalInformationById_request_claim_detail(id_request_claim_detail);
+    }
+
+    public RequestClaimDetail addOneRequestClaimDetail(RequestClaimDetail requestClaimDetail) {
+        RequestClaimDetail reqClaimDetail = requestClaimDetailRepository.save(requestClaimDetail);
+        requestClaimDetailRepository.flush();
+        return reqClaimDetail;
+    }
+
+    public RequestMedicalInformation addOneRequestMedicalInformation(RequestMedicalInformation requestMedicalInformation) {
+        return requestMedicalInformationRepository.save(requestMedicalInformation);
     }
 
     public void setUpdateRequest(Integer id_request, String description, String approval_status) {
