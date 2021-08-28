@@ -54,8 +54,8 @@ public class RequestService {
         return requestClaimDetailRepository.getRequestClaimDetailById_request(id_request);
     }
 
-    public RequestMedicalInformation getRequestMedicalInformation(Integer id_request_claim_detail) {
-        return requestMedicalInformationRepository.getRequestMedicalInformationById_request_claim_detail(id_request_claim_detail);
+    public List<RequestMedicalInformation> getRequestMedicalInformation(Integer id_request_claim_detail) {
+        return requestMedicalInformationRepository.getListReqMedInfoById_req_claim_detail(id_request_claim_detail);
     }
 
     public RequestClaimDetail addOneRequestClaimDetail(RequestClaimDetail requestClaimDetail) {
